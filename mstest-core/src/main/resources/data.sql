@@ -1,3 +1,10 @@
+delete from  employee_incident;
+delete from  task_books;
+
+delete from  employees_data;
+delete from  employees;
+delete from  status_employee;
+
 delete from  cost_position_department;
 delete from  user_department_permission;
 
@@ -14,6 +21,24 @@ delete from  user_role;
 delete from  permissions;
 delete from  roles;
 delete from  users;
+
+INSERT INTO employee_incident (id, name, description) VALUES
+(1, 'B9', 'Zwolniony'),
+(2, 'BA', 'Zwolniony emeryt'),
+(3, 'B1', 'Zatrudniony'),
+(4, 'B2', 'Transfer pracownika'),
+(5, 'B7', 'Zawieszenie pracownika'),
+(6, 'B8', 'Powrot z zawieszenia'),
+(7, 'BM', 'Przywrocenie pracownika ten sam numer os.')
+;
+
+INSERT INTO status_employee (id, name) VALUES
+(1, 'Aktywny'),
+(2, 'Zawieszony'),
+(3, 'Św.rehabilitacyjne'),
+(4, 'Nieaktywny'),
+(5, 'Zwolniony')
+;
 
 INSERT INTO companies (id, name, works, enterprise) VALUES
 (1, 'MS t.e.s.t', 'X10', '1X0')
@@ -114,10 +139,61 @@ INSERT INTO cost_position (id, name_mpk) VALUE
 (52,'1X052')
 ;
 
+INSERT INTO employees (id, first_name, last_name, number_sap, status_employee_id,created_on) VALUES
+(1, 'Jan1', 'Kowalski1', '12301', 1,now()),
+(2, 'Jan2', 'Kowalski2', '12302', 1,now()),
+(3, 'Jan3', 'Kowalski3', '12303', 1,now()),
+(4, 'Jan4', 'Kowalski4', '12304', 5,now()),
+(5, 'Jan5', 'Kowalski5', '12305', 5,now()),
+(6, 'Jan6', 'Kowalski6', '12306', 1,now()),
+(7, 'Jan7', 'Kowalski7', '12307', 5,now()),
+(8, 'Jan8', 'Kowalski8', '12308', 1,now()),
+(9, 'Jan9', 'Kowalski9', '12309', 1,now())
+;
+
+INSERT INTO employees_data (id, employee_id, work_position, beginning_of_validity, group_designation, department_id, created_on) VALUES
+(1, 2, 'Kierownik Biura','2015-12-02', 'Umyslowi',1, now()),
+(2, 3, 'Specjalista','2000-12-01', 'Umyslowi',1,now()),
+(3, 4, 'Sprzataczka','2000-12-01', 'Umyslowi',1,now()),
+(4, 8, 'Sprzataczka','2011-11-11', 'Umyslowi',1,now()),
+(5, 5, 'Sprzataczka','2010-10-01', 'Umyslowi',1,now()),
+(6, 6, 'Sprzataczka','2010-10-01', 'Umyslowi',1,now()),
+(7, 7, 'Sprzataczka','2000-03-24', 'Umyslowi',1,now()),
+(8, 8, 'Sprzataczka','2000-03-24', 'Umyslowi',1,now()),
+(9, 9, 'Sprzataczka','2000-03-24', 'Umyslowi',1,now()),
+(10, 1, 'Technik','2000-12-01', 'Umyslowi',1,now()),
+(11, 1, 'Technik','2000-12-01', 'Umyslowi',1,now()),
+(12, 1, 'Technik','2000-12-09', 'Umyslowi',2,now()),
+(13, 1, 'Sprzataczka','2003-12-01', 'Umyslowi',1,now()),
+(14, 1, 'Sprzataczka','2012-12-01', 'Umyslowi',2,now()),
+(15, 1, 'Specjalista', '2014-05-19', 'Umyslowi',1, now()),
+(16, 1, 'Specjalista', '2015-05-19', 'Umyslowi',2,now()),
+(17, 1, 'Specjalista', '2016-05-19', 'Umyslowi',1,now())
+;
+
+INSERT INTO task_books (id, employee_id, name_file, task_book_date, created_on) VALUES
+(1, 1, '1_12301_TaskBook_12102004.pdf','2000-10-06', now()),
+(2, 1, '1_12301_TaskBook_12102001.pdf','2001-10-12', now()),
+(3, 1, '1_12301_TaskBook_12102003.pdf','2002-10-12', now()),
+(4, 1, '1_12301_TaskBook_12102002.pdf','2003-10-12', now()),
+(5, 1, '1_12301_TaskBook_12102004.pdf','2004-10-12', now()),
+(6, 1, '1_12301_TaskBook_12102004.pdf','2014-10-12', now()),
+(7, 1, '1_12301_TaskBook_12102004.pdf','2015-10-12', now()),
+(8, 2, '1_12302_TaskBook_12102003.pdf','2003-10-12', now()),
+(9, 2, '1_12302_TaskBook_12102004.pdf','2004-10-12', now())
+;
+
 INSERT INTO permissions (id, name) VALUES
 (1, 'MANAGE_ACCOUNT'),
 
 (3, 'MANAGE_DEPARTMENT'),
+
+(7, 'MANAGE_EMPLOYEES'),
+(8, 'MANAGE_EMPLOYEES_WITHOUT'),
+(9, 'MANAGE_EMPLOYEES_ADDEMPLOYEE'),
+(10, 'MANAGE_EMPLOYEES_EPLOADEMPLOYEE'),
+(11, 'MANAGE_EMPLOYEES_TASKBOOK'),
+(12, 'MANAGE_EMPLOYEES_EDITEMPLOYEE'),
 
 (16, 'MANAGE_USERS'),
 (17, 'MANAGE_ROLES'),
@@ -139,7 +215,9 @@ INSERT INTO users (id, email, password, first_name, last_name) VALUES
 ;
 
 insert into role_permission(role_id, perm_id) values
-(1,1),(1,3),(1,16),(1,17),(1,18)
+(1,1),(1,3),
+(1,7),(1,8),(1,9),(1,10),(1,11),(1,12),
+(1,16),(1,17),(1,18)
 ;
 
 insert into user_role(user_id, role_id) values
