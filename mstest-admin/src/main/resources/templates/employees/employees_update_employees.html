@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      layout:decorator="layout/mainLayout">
+      
+      <head>
+        <title>Employee - Upload</title>
+          <script type="text/javascript" th:src="@{'/assets/w3/js/csi.js'}"></script>
+    </head>
+    <body>
+        
+    	<div layout:fragment="content">
+
+            <div class="box box-warning">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Aktualizacja pracownikow</h3>
+                    <div class="box-tools">
+                        <div class="input-group" style="width: 150px;" data-include="employees_menu">
+                        </div>
+                    </div>
+                    <div class="box-tools">
+                        <div class="input-group" style="width: 150px;" data-include="employees_menu">
+                        </div>
+                    </div>
+                </div>
+                <div class="box-body">
+                    <form role="form" th:action="@{/employees/update_employee}" th:object="${employeeupdate}" method="post" enctype="multipart/form-data">
+
+                        <div class="form-group" th:classappend="${#fields.hasErrors('image2')}? 'has-error'">
+                            <label for="image">Pracownicy</label>
+                            <input type="file" multiple="true" class="form-control" name="image" th:field="*{image}"/>
+                            <p th:if="${#fields.hasErrors('image2')}" th:errors="*{image2}" th:class="text-red">Incorrect data</p>
+                            <p class="help-block">Wybierz plik XLSX (Excel 2010 - 2016) z pracownikami wyimportowany z programu SAP</p>
+                            <!--<input type="file" name="file" />-->
+                        </div>
+
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                        </div>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </body>
+    
+</html>

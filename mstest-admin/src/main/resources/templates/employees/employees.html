@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      layout:decorator="layout/mainLayout">
+
+<head>
+    <title>Pracownicy</title>
+    <script type="text/javascript" th:src="@{'/assets/w3/js/tablesorter.js'}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+<div layout:fragment="content">
+
+    <div class="row" modelAttribute = "employee">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="tab">
+                    <!-- Nav tabs -->
+                    <div class="box-header">
+                        <h3 class="box-title">Pracownicy</h3>
+                        <div class="box-tools">
+                            <p>
+                                <a th:href="@{/employees}" method="GET" class="btn-sm btn-info"><i class="fa fa-users"></i>   Pracownicy</a>
+                                <a th:href="@{/employees/employees_without}" method="GET" class="btn-sm btn-info"><i class="glyphicon glyphicon-user"></i>   Pracownicy bez Ksiag Zadan</a>
+                                <a th:href="@{/employees/add_employees}" method="GET" class="btn-sm btn-warning"><i class="glyphicon glyphicon-download-alt"></i>   Nowi pracownicy</a>
+                                <a th:href="@{/employees/update_employees}" method="GET" class="btn-sm btn-warning"><i class="glyphicon glyphicon-download-alt"></i>   Aktualizacja pracownikow</a>
+                                <a th:href="@{/employees/uploads_taskbook}" method="GET" class="btn-sm btn-warning"><i class="glyphicon glyphicon-book"></i>   Zaladuj ksiazke zadan</a>
+                            </p>
+                        </div>
+                    </div><!-- /.box-header -->
+                    <!-- Tab panes -->
+                    <div class="table tab-content">
+                        <div role="tabpanel" class="tab-pane fade in active" id="employee">
+
+                            <!--Cialo#1 START -->
+                          <div class="box-body table-responsive no-padding">
+                              <table class="table table-hover">
+                                    <tr>
+                                    <form role="form" th:action="@{/employees}" th:object="${employeesearch}" method="POST">
+                                      <th style="width: 10px">#</th>
+                                      <th>
+                                          <div>
+                                              <input type="text" class="form-control input-sm" name="numbersap" th:field="*{numbersap}"/>
+                                          </div>
+                                      </th>
+                                      <th>
+                                          <div>
+                                              <input type="text" class="form-control input-sm" name="firstname" th:field="*{firstname}"/>
+                                          </div>
+                                      </th>
+                                      <th>
+                                          <div>
+                                              <input type="text" class="form-control input-sm" name="lastname" th:field="*{lastname}"/>
+                                          </div>
+                                      </th>
+                                      <th>
+                                          <div>
+                                              <input type="text" class="form-control input-sm" name="departmentshortname" th:field="*{departmentshortname}"/>
+
+                                          </div>
+                                      </th>
+                                      <th>
+                                          <div>
+                                              <input type="text" class="form-control input-sm" name="departmentname" th:field="*{departmentname}"/>
+                                          </div>
+                                      </th>
+                                      <th>
+                                          <div>
+                                              <select class="form-control input-sm" th:field="*{statusemployee}">
+                                                  <option th:each="sCL : ${employeeStatus}"
+                                                          th:value="${sCL.name}"
+                                                          th:text="${sCL.name}">Status Employee</option>
+                                              </select>
+                                          </div>
+                                      </th>
+                                      <th>
+                                          <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Szukaj</button>
+                                      </th>
+                                    </form>
+                                      <th>
+                                          <a th:href="@{/employees}" method="GET" class="btn btn-sm btn-default"><i class="fa fa-remove"></i> Wyczysc</a>
+                                      </th>
+
+                                  </tr>
+
+                                  <tr>
+                                      <th style="width: 10px">#</th>
+                                      <th>Nr SAP</th>
+                                      <th>Imie</th>
+                                      <th>Nazwisko</th>
+                                      <th>Dzial</th>
+                                      <th>Pelna nazwa dzialu</th>
+                                      <th>Status</th>
+                                      <th>
+
+                                      </th>
+                                      <th></th>
+                                  </tr>
+
+                                  <tr th:each="employeedata,iterStat : ${employees}">
+                                      <td><span th:text="${iterStat.count}">1</span></td>
+                                      <td th:text="${employeedata.employee.numbersap}">Employeedata NumberSAP</td>
+                                      <td th:text="${employeedata.employee.firstname}">Employee FirstName</td>
+                                      <td th:text="${employeedata.employee.lastname}">Employee LastName</td>
+
+                                      <td th:text="${employeedata.department.shortname}"></td>
+                                      <td th:text="${employeedata.department.name}"></td>
+
+                                      <td th:text="${employeedata.employee.statusEmployee.name}">Status Name</td>
+                                      <!--<td th:text="${employee.employeedata.get(0).departament.name}">Employee Status</td>-->
+                                      <td>
+                                          <a th:href="@{/employees/{id}(id=${employeedata.id})}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> Edycja</a>
+                                      </td>
+
+                                      <td>
+                                      </td>
+                                  </tr>
+
+                              </table>
+                          </div>
+                          <!--Cialo#1 END -->
+                      </div>
+
+
+                      <div role="tabpanel" class="tab-pane" id="employee_addemployee">
+
+                      </div>
+
+
+                      <div role="tabpanel" class="tab-pane" id="upload_employee">
+
+
+                      </div>
+
+
+                      <div role="tabpanel" class="tab-pane" id="upload_taskbook">
+
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" id="myModel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title"><b>Usuwanie Pracownika - Nr SAP: <a th:text="${employeedata.employee.numbersap}"></a></b></h4>
+            </div>
+
+            <div class="modal-body">
+                <p>
+                    Czy na pewno chcesz usunac pracownika: <b><a th:text="${employeedata.employee.firstname}"></a> <a th:text="${employeedata.employee.lastname}"></a></b>?
+                </p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Anuluj</button>
+                <button class="btn btn-primary" th:onclick="'delete2(' + ${employeedata.employee.id} + ')'" >Usun</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+w3.includeHTML();
+</script>
+
+</body>
+
+</html>

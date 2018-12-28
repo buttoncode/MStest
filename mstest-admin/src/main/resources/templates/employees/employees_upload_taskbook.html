@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      layout:decorator="layout/mainLayout">
+
+<head>
+    <title>Employee - Upload TaskBook</title>
+    <script type="text/javascript" th:src="@{'/assets/w3/js/csi.js'}"></script>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="box box-warning">
+        <div class="box-header with-border">
+            <h3 class="box-title">Importowanie ksiazek zadan pracownikow</h3>
+            <div class="box-tools">
+                <div class="input-group" style="width: 150px;" data-include="employees_menu">
+                </div>
+            </div>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+            <form role="form" th:action="@{/employees/uploads_taskbook}" th:object="${employeesaction}" method="post" enctype="multipart/form-data">
+                <p th:if="${#fields.hasErrors('global')}" th:errors="*{global}" th:class="text-red">Incorrect data</p>
+                <!-- text input -->
+
+                <div class="form-group" th:classappend="${#fields.hasErrors('image2')}? 'has-error'">
+                    <label for="image2">Ksiazka Zadan</label>
+                    <input type="file" multiple="true" class="form-control" name="image2" th:field="*{image2}"/>
+                    <!--<p th:if="${#fields.hasErrors('image')}" th:errors="*{image}" th:class="text-red">Incorrect data</p>-->
+                    <p class="help-block">Wybierz plik PDF z karta stanowiskowa pracownika.</p>
+                    <p class="help-block">Format: NumerSap_Data[ddmmrrrr].pdf (przykad: 191001_01102017.pdf)</p>
+                </div>
+
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+            </form>
+        </div><!-- /.box-body -->
+    </div>
+
+</div>
+
+</body>
+
+</html>

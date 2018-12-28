@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      layout:decorator="layout/mainLayout">
+      
+      <head>
+        <title>Employee - Upload</title>
+          <script type="text/javascript" th:src="@{'/assets/w3/js/csi.js'}"></script>
+    </head>
+    <body>
+        
+    	<div layout:fragment="content">
+
+            <div class="box box-warning">
+                <div class="box-header with-border">
+                    <h3 class="box-title">Import pracownikow z systemu SAP</h3>
+                    <div class="box-tools">
+                        <div class="input-group" style="width: 150px;" data-include="employees_menu">
+                        </div>
+                    </div>
+                </div><!-- /.box-header -->
+                <div class="box-body">
+                    <form role="form" th:action="@{/employees/add_employees}" th:object="${employeesaction}" method="post" enctype="multipart/form-data">
+                        <label for="image">Pracownicy</label>
+                        <input type="file" multiple="true" class="form-control" name="image" th:field="*{image}"/>
+                        <p class="help-block">Wybierz plik XLS (Excel 2003 - 2007) albo XLSX (Excel 2010 - 2016) z pracownikami wyimportowany z programu SAP</p>
+
+                        <div class="box-footer">
+                            <script>
+                                $('#myButton').on('click', function () {
+                                    var $btn = $(this);
+                                    $btn.button('loading');
+                                    // business logic...
+                                    setTimeout(function(){
+                                        $btn.button('reset');
+                                    },8000);
+                                });
+                            </script>
+                            <button type="submit" id="myButton" data-loading-text="Loading..." class="btn btn-primary" autocomplete="off">
+                                Loading state
+                            </button>
+                        </div>
+
+
+                    </form>
+                </div><!-- /.box-body -->
+            </div>
+    	</div>
+    	
+    </body>
+    
+</html>
