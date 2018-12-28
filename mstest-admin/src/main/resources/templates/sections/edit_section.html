@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      layout:decorator="layout/mainLayout">
+
+<head>
+    <title>Section - Edit</title>
+
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <script>
+
+         function delete2(id){
+            console.log("bbbbbbbbb")
+            $.ajax({
+                url: id,
+                type: 'DELETE',
+                success: function (result) {
+                    window.location.assign("https://localhost:9443/sections")
+                    console.log(result);
+                    console.log("aaaaaaaaaaaaaaaa");
+                    // Do something with the result
+                }
+            });
+        }
+    </script>
+
+
+    <div class="box box-warning">
+        <div class="box-header with-border">
+            <h3 class="box-title">Edit Product</h3>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+            <form role="form" th:action="@{/sections/{id}(id=${sectionTop.id})}" th:object="${sectionTop}" method="post"  enctype="multipart/form-data">
+                <p th:if="${#fields.hasErrors('global')}" th:errors="*{global}" th:class="text-red">Incorrect data</p>
+                <!-- text input -->
+                <div class="form-group" th:classappend="${#fields.hasErrors('name')}? 'has-error'">
+                    <label>Name Section</label>
+                    <input type="text" class="form-control" name="price" th:field="*{name}" placeholder="Enter Section Name"/>
+                    <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:class="text-red">Incorrect data</p>
+                </div>
+
+                <div class="form-group" th:classappend="${#fields.hasErrors('shortname')}? 'has-error'">
+                    <label>Short Name Section</label>
+                    <input type="text" class="form-control" name="description" th:field="*{shortname}" placeholder="Enter Short Section Name"></input>
+                    <p th:if="${#fields.hasErrors('shortname')}" th:errors="*{shortname}" th:class="text-red">Incorrect data</p>
+                </div>
+
+
+                <div class="box-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button class="btn btn-primary" th:onclick="'delete2(' + ${sectionTop.id} + ')'" >Delete</button>
+
+                </div>
+
+            </form>
+        </div><!-- /.box-body -->
+    </div><!-- /.box -->
+</div>
+
+</body>
+
+</html>

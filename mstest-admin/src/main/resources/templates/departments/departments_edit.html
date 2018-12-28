@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      layout:decorator="layout/mainLayout">
+
+<head>
+    <title>Department - Edit</title>
+
+</head>
+<body>
+
+<div layout:fragment="content">
+
+    <div class="box box-warning">
+        <div class="box-header with-border">
+            <h3 class="box-title">Edit Department</h3>
+        </div><!-- /.box-header -->
+        <div class="box-body">
+            <form role="form" th:action="@{/departments/{idd}(idd=${departments.id})}" th:object="${departments}" method="post"  enctype="form-data">
+
+                <div class="row">
+                <div class="form-group col-md-2" th:classappend="${#fields.hasErrors('sectionTop.company.name')}? 'has-error'">
+                    <label>Firma</label>
+                    <input type="text" class="form-control" name="sectionTop.company.name" th:field="*{sectionTop.company.name}" placeholder="Company Name" readonly="readonly"/>
+                </div>
+
+                <div class="form-group col-md-3" th:classappend="${#fields.hasErrors('shortname')}? 'has-error'">
+                    <label>Pion</label>
+                    <input type="text" class="form-control" name="shortname" th:field="*{sectionTop.name}" placeholder="Section Name" readonly="readonly"/>
+                </div>
+                </div>
+
+                <div class="row">
+                <div class="form-group col-md-4" th:classappend="${#fields.hasErrors('name')}? 'has-error'">
+                    <label>Departament</label>
+                    <input type="text" class="form-control" name="price" th:field="*{name}" placeholder="Departament Name" readonly="readonly"/>
+                </div>
+
+                <div class="form-group col-md-1" th:classappend="${#fields.hasErrors('shortname')}? 'has-error'">
+                    <label>Skrot</label>
+                    <input type="text" class="form-control" name="shortname" th:field="*{shortname}" placeholder="Departament Short Name" readonly="readonly"/>
+                </div>
+                </div>
+
+            </form>
+        </div><!-- /.box-body -->
+
+        <div class="box-body table-responsive no-padding">
+            <table class="table table-hover">
+                <tr>
+                    <th style="width: 10px">#</th>
+                    <th>Miejsce Powstawania Kosztow (MPK)</th>
+                </tr>
+                <tr th:each="departments.costPositions,iterStat : ${departments.costPositions}">
+                    <td th:text="${iterStat.count}">1</td>
+                    <td th:text="${departments.costPositions.get(__${iterStat.index}__).namempk}">MPK Name</td>
+                </tr>
+            </table>
+        </div>
+    </div><!-- /.box -->
+</div>
+
+</body>
+
+</html>

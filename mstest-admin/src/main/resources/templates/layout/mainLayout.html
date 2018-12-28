@@ -128,6 +128,8 @@
           <ul class="sidebar-menu colltoolbar">
             <li th:class="${CURRENT_MENU == 'Home'}? 'active' : ''" ><a href="#" th:href="@{'/home'}"><i class="fa fa-home"></i> <span>Home</span></a></li>
 
+            <li th:class="${CURRENT_MENU == 'Departments'}? 'active' : ''"  sec:authorize="hasRole('ROLE_MANAGE_DEPARTMENT')"><a href="#" th:href="@{'/departments'}"><i class="fa fa-laptop"></i><span> Departamenty </span></a></li>
+
             <li th:class="${CURRENT_MENU == 'Users'}? 'active' : ''"  sec:authorize="hasRole('ROLE_MANAGE_USERS')"><a href="#" th:href="@{'/users'}"><i class="fa fa-users"></i><span> Users </span></a></li>
             <li th:class="${CURRENT_MENU == 'Roles'}? 'active' : ''"  sec:authorize="hasRole('ROLE_MANAGE_ROLES')"><a href="#" th:href="@{'/roles'}"><i class="fa fa-user"></i><span> Roles </span></a></li>
             <li th:class="${CURRENT_MENU == 'Permissions'}? 'active' : ''"  sec:authorize="hasRole('ROLE_MANAGE_PERMISSIONS')"><a href="#" th:href="@{'/permissions'}"><i class="fa fa-shield"></i><span> Permissions </span></a></li>
