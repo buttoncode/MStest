@@ -22,6 +22,15 @@ public class Department implements Serializable {
     @Column(name = "tree", insertable = false, updatable = false)
     private String tree;
 
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "department")
+    private List<Employeedata> employeedata;
+
+    @ManyToMany(cascade=CascadeType.MERGE)
+    @JoinTable(
+            name="cost_position_department",
+            joinColumns={@JoinColumn(name="DEPARTMENT_ID", referencedColumnName="ID")},
+            inverseJoinColumns={@JoinColumn(name="COST_POSITION_ID", referencedColumnName="ID")})
+    private List<CostPosition> costPositions;
 
     @ManyToMany(cascade=CascadeType.MERGE)
     @JoinTable(
@@ -73,6 +82,20 @@ public class Department implements Serializable {
     }
     public void setSectionTop(SectionTop sectionTop) {
         this.sectionTop = sectionTop;
+    }
+
+    public List<CostPosition> getCostPositions() {
+        return costPositions;
+    }
+    public void setCostPositions(List<CostPosition> costPositions) {
+        this.costPositions = costPositions;
+    }
+
+    public List<Employeedata> getEmployeedata() {
+        return employeedata;
+    }
+    public void setEmployeedata(List<Employeedata> employeedata) {
+        this.employeedata = employeedata;
     }
 
     @Override

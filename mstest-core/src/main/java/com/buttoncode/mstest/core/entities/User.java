@@ -50,6 +50,13 @@ public class User
 	      inverseJoinColumns={@JoinColumn(name="ROLE_ID", referencedColumnName="ID")})
 	private List<Role> roles;
 
+	@ManyToMany(cascade=CascadeType.MERGE)
+	@JoinTable(
+			name="user_department_permission",
+			joinColumns={@JoinColumn(name="USER_ID", referencedColumnName="ID")},
+			inverseJoinColumns={@JoinColumn(name="DEPARTMENT_ID", referencedColumnName="ID")})
+	private List<Department> departments;
+
 	public Integer getId()
 	{
 		return id;
@@ -110,4 +117,10 @@ public class User
 		this.passwordResetToken = passwordResetToken;
 	}
 
+	public List<Department> getDepartments() {
+		return departments;
+	}
+	public void setDepartments(List<Department> departments) {
+		this.departments = departments;
+	}
 }
