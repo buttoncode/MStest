@@ -15,6 +15,8 @@ public class MenuConfiguration
 
 		MENU_URL_PATTERN_MAP.put("/departments", "Departments");
 
+		MENU_URL_PATTERN_MAP.put("/employees", "Employees");
+
 		MENU_URL_PATTERN_MAP.put("/users", "Users");
 		MENU_URL_PATTERN_MAP.put("/roles", "Roles");
 		MENU_URL_PATTERN_MAP.put("/permissions", "Permissions");
