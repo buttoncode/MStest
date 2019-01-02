@@ -4,6 +4,27 @@ delete from  compliance_code_of_ethic;
 delete from  compliance_anticorruption_policy;
 delete from  waiting_time;
 
+delete from  stocktaking_software_employee;
+delete from  stocktaking_software_device_hardware;
+delete from  stocktaking_software_periodic_periodic;
+delete from  stocktaking_software_device_delivery;
+delete from  stocktaking_software_periodic_hardware;
+
+delete from  stocktaking_hardware_employee;
+delete from  stocktaking_hardware_software;
+
+delete from  stocktaking_software_periodic;
+delete from  stocktaking_software_device;
+delete from  stocktaking_software;
+delete from  stocktaking_hardware;
+
+delete from  periodic;
+delete from  delivery;
+delete from  producers;
+delete from  device_type;
+delete from  providers;
+delete from  software;
+
 delete from  employees_data;
 delete from  employees;
 delete from  status_employee;
@@ -198,10 +219,90 @@ INSERT INTO task_books (id, employee_id, name_file, task_book_date, created_on) 
 (9, 2, '1_12302_TaskBook_12102004.pdf','2004-10-12', now())
 ;
 
+INSERT INTO producers (id, name) VALUES
+(1,'Producent1'),
+(2,'Producent2'),
+(3,'Producent3'),
+(4,'Producent4'),
+(5,'Producent5'),
+(6,'Producent6'),
+(7,'Producent7'),
+(8,'Producent8'),
+(9,'Producent9'),
+(10,'Producent10'),
+(11,'Producent11')
+;
+
+INSERT INTO device_type (id, name, type) VALUES
+(1,'Niszczarka',2),
+(2,'Komputer przenosny',1),
+(3,'Komputer stacjonarny',1),
+(4,'Oprogramowanie',3),
+(5,'Monitor',2)
+;
+
+INSERT INTO providers (id,name, street, post_code, city, nip_number,created_on) VALUES
+(1,'Dostawca1','ulica1','00-100','Miasto1','1231231212',now()),
+(2,'Dostawca2','ulica1','00-100','Miasto2','3213212121',now())
+;
+
+INSERT INTO delivery (id, provider_id, fv_number, date_of_bought,created_on) VALUES
+(1,1,'FV/11/2018','2000-12-09',now()),
+(2,1,'FV/12/2018','2000-12-09',now()),
+(3,1,'FV/13/2018','2000-12-09',now()),
+(4,1,'FV/14/2018','2000-12-09',now())
+;
+
+INSERT INTO periodic (id, delivery_id, date_of_start, date_of_end, quantity, created_on) VALUES
+(1,1,'2002-12-09','2000-12-09','60',now()),
+(2,1,'2003-12-09','2001-12-09','20',now())
+;
+
+INSERT INTO software (id, name) VALUES
+(1,'Linux'),
+(2,'Linux Serwer'),
+(3,'Windows'),
+(4,'Windows Serwer'),
+(5,'Android'),
+(6,'Office'),
+(7,'NOD32')
+;
+
+INSERT INTO stocktaking_hardware (id, stocktaking_number_sap, stocktaking_number_ms, delivery_id , description, device_type_id, producer_id, model, product_name, serial_number, created_on) VALUES
+(1,'12000000221','MS/02/001',1,'aaaaa',2,2,'model1','YADSDA3235','1235234534',now()),
+(2,'12000000222','MS/02/002',2,'aaaaa',3,2,'model2','UDSAOPJA87','1235234534',now()),
+(3,'12000000223','MS/02/003',3,'aaaaa',2,1,'model3','AFSGFJK9H9','1235234534',now()),
+(4,'12000000224','MS/02/004',4,'aaaaa',2,3,'model4','SD987SFJKS','1235234534',now()),
+(5,'12000000225','MS/02/005',1,'aaaaa',5,4,'model5','GD335GD3GD','1235234534',now())
+;
+
+INSERT INTO stocktaking_software (id, stocktaking_number_sap, stocktaking_number_ms, delivery_id , description, device_type_id, producer_id, software_id, model, key_number, created_on) VALUES
+(6,'13000000231','MS/03/003',1,'aaaaa', 4,3,6,'2016','1235234534',now()),
+(7,'13000000232','MS/03/004',1,'aaaaa', 4,3,6,'2013','1235234534',now()),
+(8,'13000000232','MS/03/005',1,'aaaaa', 4,3,6,'2013','1235234534',now())
+;
+
+INSERT INTO stocktaking_software_periodic (id, description, device_type_id, producer_id, software_id, model, key_number, created_on) VALUES
+(9,'aaaaa', 4,11,7,'Antivirus','1235234534',now()),
+(10,'aaaaa', 4,11,7,'Internet Security','1235234534',now()),
+(11,'aaaaa', 4,11,7,'2013','1235234534',now())
+;
+
+INSERT INTO stocktaking_software_device (id, description, device_type_id, producer_id, software_id, model, key_number, created_on) VALUES
+(12,'aaaaa', 4,3,3,'7','1235234534',now()),
+(13,'aaaaa', 4,3,3,'10','1235234534',now()),
+(14,'aaaaa', 4,3,3,'XP','1235234534',now())
+;
+
 INSERT INTO permissions (id, name) VALUES
 (1, 'MANAGE_ACCOUNT'),
 
 (3, 'MANAGE_DEPARTMENT'),
+
+(4, 'MANAGE_STOCKTAKING'),
+(5, 'MANAGE_STOCKTAKING_CONFIGURE'),
+
+(6, 'MANAGE_PROVIDERS'),
 
 (7, 'MANAGE_EMPLOYEES'),
 (8, 'MANAGE_EMPLOYEES_WITHOUT'),
@@ -261,8 +362,36 @@ INSERT INTO compliance_anticorruption_policy (id, date_of_training, waiting_time
 (11,'2013-03-12',1 ,'2018-03-12', 1,1, 'AP',now())
 ;
 
+insert into stocktaking_hardware_software (stocktaking_hardware_id, stocktaking_software_id) values
+(1,6),(2,6),(3,8)
+;
+
+insert into stocktaking_hardware_employee (stocktaking_hardware_id, employee_id) values
+(1,1),(2,1)
+;
+
+insert into stocktaking_software_employee (stocktaking_software_id, employee_id) values
+(6,1),(7,1),(8,1)
+;
+
+insert into stocktaking_software_periodic_hardware (stocktaking_hardware_id, stocktaking_software_periodic_id) values
+(1,9),(2,10),(1,11)
+;
+
+insert into stocktaking_software_device_hardware (stocktaking_software_device_id, stocktaking_hardware_id) values
+(12,1),(13,1),(14,2)
+;
+
+insert into stocktaking_software_periodic_periodic (stocktaking_software_periodic_id, periodic_id) values
+(9,1),(10,2)
+;
+
+insert into stocktaking_software_device_delivery (stocktaking_software_device_id, delivery_id) values
+(12,1),(13,1),(14,1)
+;
+
 insert into role_permission(role_id, perm_id) values
-(1,1),(1,3),
+(1,1),(1,3),(1,4),(1,5),(1,6),
 (1,7),(1,8),(1,9),(1,10),(1,11),(1,12),(1,13),(1,14),(1,15),
 (1,16),(1,17),(1,18)
 ;
