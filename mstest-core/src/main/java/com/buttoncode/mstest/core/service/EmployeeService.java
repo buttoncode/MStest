@@ -33,6 +33,12 @@ public class EmployeeService {
 
     public Employee getEmployeeById(Integer id) { return employeeRepository.findOne(id); }
 
+    public List<Employee> getAllEmployeeWithoutComplianceCodeOfEhic(String status){
+        return employeeRepository.findAllEmployeeWithoutComplianceCodeOfEthic(status);}
+
+    public List<Employee> getAllEmployeeWithoutComplianceAnticorruptionPolucy(String status){
+        return employeeRepository.findAllEmployeeWithoutComplianceAntiCorruptionPolicy(status);}
+
     public List <Employee> getSearch (Specification<Employee> employeeSpecification){
         return employeeRepository.findAll(employeeSpecification);}
 
