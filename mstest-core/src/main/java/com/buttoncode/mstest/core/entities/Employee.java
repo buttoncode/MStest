@@ -33,6 +33,9 @@ public class Employee implements Serializable {
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "employee")
     private List<Employeedata> employeedata;
 
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "employees")
+    private List<StocktakingHardware> stocktakingHardwares;
+
     public Integer getId() {
         return id;
     }
@@ -79,4 +82,10 @@ public class Employee implements Serializable {
         this.employeedata = employeedata;
     }
 
+    public List<StocktakingHardware> getStocktakingHardwares() {
+        return stocktakingHardwares;
+    }
+    public void setStocktakingHardwares(List<StocktakingHardware> stocktakingHardwares) {
+        this.stocktakingHardwares = stocktakingHardwares;
+    }
 }
