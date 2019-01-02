@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      layout:decorator="layout/mainLayout">
+
+<head>
+    <title>Polityka Antykorupcyjna</title>
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+    <script type="text/javascript" th:src="@{'/assets/w3/js/csi.js'}"></script>
+</head>
+
+<body>
+    <div layout:fragment="topmenu">
+    </div>
+    <div layout:fragment="content">
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box">
+                <!-- Nav tabs -->
+                    <div class="box-header">
+                        <h3 class="box-title">Polityka Antykorupcyjna</h3>
+                        <div class="box-tools">
+
+                                <p>
+                                    <a th:href="@{/compliances/anticorruption_policy}" method="GET" class="btn-sm btn-info"><i class="glyphicon glyphicon-check"></i>   Lista aktywnych Polityk Antykorupcyjnych</a>
+                                    <a th:href="@{/compliances/anticorruption_policy/employee_without}" method="GET" class="btn-sm btn-info"><i class="glyphicon glyphicon-education"></i>   Lista pracownikow bez szkolenia Polityki Antykorupcyjnej</a>
+                                    <a th:href="@{/compliances/anticorruption_policy/employee_all}" method="GET" class="btn-sm btn-info"><i class="glyphicon glyphicon-user"></i>   Lista wszystkich pracownikow</a>
+                                </p>
+
+                        </div>
+                    </div><!-- /.box-header -->
+                <!-- Tab panes -->
+                <div class="table tab-content">
+                    <div role="tabpanel" class="tab-pane fade in active">
+                        <div>
+                            <!--Cialo#1 START -->
+                            <div class="box-tools">
+                                <div class="input-group" style="width: 150px;">
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.box-header -->
+                        <div class="box-body table-responsive no-padding">
+                            <table class="table table-hover">
+                                <tr>
+                                    <th style="width: 10px">#</th>
+                                    <th>Nr SAP</th>
+                                    <th>Imie</th>
+                                    <th>Nazwisko</th>
+                                    <th>Data szkolenia</th>
+                                    <th>Waznosc szkolenia</th>
+                                    <th>Status pracownika</th>
+                                    <th>Status szkolenia</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+
+                                <tr>
+                                    <form role="form" th:action="@{/compliances/anticorruption_policy/compliance}" th:object="${compliancesearch}" method="POST">
+                                        <th style="width: 10px">#</th>
+                                        <th>
+                                            <div>
+                                                <input type="text" class="form-control input-sm" name="numbersap" th:field="*{numbersap}"/>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div>
+                                                <input type="text" class="form-control input-sm" name="firstname" th:field="*{firstname}"/>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div>
+                                                <input type="text" class="form-control input-sm" name="lastname" th:field="*{lastname}"/>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div>
+                                                <input type="text" class="form-control input-sm" name="dateoftrainging" th:field="*{dateoftrainging}" readonly="readonly"/>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div>
+                                                <input type="text" class="form-control input-sm" name="expirydateoftraining" th:field="*{expirydateoftraining}" readonly="readonly"/>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div>
+                                                <select class="form-control input-sm" th:field="*{statusemployee}">
+                                                    <option th:each="sCL : ${employeeStatus}"
+                                                            th:value="${sCL.name}"
+                                                            th:text="${sCL.name}">Status Employee</option>
+                                                </select>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <div>
+                                                <select class="form-control input-sm" th:field="*{statuscompliance}">
+                                                    <option th:each="sCL : ${complianceStatus}"
+                                                            th:value="${sCL.name}"
+                                                            th:text="${sCL.name}">Status Compliance</option>
+                                                </select>
+                                            </div>
+                                        </th>
+                                        <th>
+                                            <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-search"></i>Szukaj</button>
+                                        </th>
+                                    </form>
+                                    <th>
+                                        <a th:href="@{/compliances/anticorruption_policy}" method="GET" class="btn btn-sm btn-default"><i class="fa fa-remove"></i> Wyczysc</a>
+                                    </th>
+
+                                </tr>
+
+                                <tr th:each="complianceCodeOfEthic,iterStat : ${complianceListDefault}">
+                                    <td th:text="${iterStat.count}">1</td>
+                                    <td th:text="${complianceCodeOfEthic.employee.numbersap}">Employee Number SAP</td>
+                                    <td th:text="${complianceCodeOfEthic.employee.firstname}">Employee First Name</td>
+                                    <td th:text="${complianceCodeOfEthic.employee.lastname}">Employee Last Name</td>
+                                    <td th:text="${complianceCodeOfEthic.dateoftrainging}">Compliance Date of trining</td>
+                                    <td th:text="${complianceCodeOfEthic.expirydateoftraining}">Compliance Expiry date of training</td>
+                                    <td th:text="${complianceCodeOfEthic.employee.statusEmployee.name}">StatusEmployee Employee</td>
+                                    <td th:text="${complianceCodeOfEthic.statusCompliance.name}">StatusEmployee Employee</td>
+                                    <td><a th:href="@{/compliances/anticorruption_policy/{id}(id=${complianceCodeOfEthic.employee.id})}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> Edycja</a></td>
+                                    <td>
+                                        <button type="button" class="btn btn-default" aria-label="Left Align">
+                                        <span class="glyphicon glyphicon-edit" aria-hidden="true">
+
+                                        </span>
+                                        </button>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                        <!--Cialo#1 END -->
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+
+        <!--JAVA SCRIPTS-->
+        <script>
+            w3.includeHTML();
+        </script>
+
+
+    </div>
+
+</body>
+
+</html>

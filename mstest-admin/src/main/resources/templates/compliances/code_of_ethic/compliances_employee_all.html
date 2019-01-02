@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	  layout:decorator="layout/mainLayout">
+
+<head>
+	<title>Kodeks Etyki</title>
+	<script src="https://www.w3schools.com/lib/w3.js"></script>
+	<script type="text/javascript" th:src="@{'/assets/w3/js/csi.js'}"></script>
+</head>
+
+<body>
+	<div layout:fragment="topmenu">
+
+	</div>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="box">
+				<!-- Nav tabs -->
+				<div class="box-header">
+					<h3 class="box-title">Kodeks Etyki</h3>
+					<div class="box-tools">
+						<div class="input-group" style="width: 150px;" data-include="compliances_menu">
+						</div>
+					</div>
+				</div>
+				<!-- Tab panes -->
+				<div class="table tab-content">
+					<div>
+						<!--Cialo#1 START -->
+						<div class="box-tools">
+							<div class="input-group" style="width: 150px;">
+
+							</div>
+						</div>
+					</div>
+					<!-- /.box-header -->
+					<div class="box-body table-responsive no-padding">
+						<table class="table table-hover">
+
+							<tr>
+								<th style="width: 10px">#</th>
+								<th>Nr SAP</th>
+								<th>Imie</th>
+								<th>Nazwisko</th>
+								<th>Status pracownika</th>
+								<th></th>
+								<th></th>
+							</tr>
+
+							<tr>
+								<form role="form" th:action="@{/compliances/code_of_ethic/employee_all}" th:object="${employeeSearchAll}" method="POST">
+
+									<th style="width: 10px">#</th>
+									<th>
+										<div>
+											<input type="text" class="form-control input-sm" name="numbersap" th:field="*{numbersap}"/>
+										</div>
+									</th>
+									<th>
+										<div>
+											<input type="text" class="form-control input-sm" name="firstname" th:field="*{firstname}"/>
+										</div>
+									</th>
+									<th>
+										<div>
+											<input type="text" class="form-control input-sm" name="lastname" th:field="*{lastname}"/>
+										</div>
+									</th>
+									<th>
+										<div>
+											<select class="form-control input-sm" th:field="*{statusemployee}">
+												<option th:each="sCL : ${employeeStatus}"
+														th:value="${sCL.name}"
+														th:text="${sCL.name}">Status Employee</option>
+											</select>
+										</div>
+									</th>
+									<th>
+										<button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Szukaj</button>
+									</th>
+								</form>
+								<th>
+									<a th:href="@{/compliances/code_of_ethic/employee_all}" method="GET" class="btn btn-sm btn-default"><i class="fa fa-remove"></i> Wyczysc</a>
+								</th>
+							</tr>
+
+							<tr th:each="employee,iterStat : ${employeeAll}">
+								<td th:text="${iterStat.count}">1</td>
+								<td th:text="${employee.numbersap}">Employee Number SAP</td>
+								<td th:text="${employee.firstname}">Employee First Name</td>
+								<td th:text="${employee.lastname}">Employee Last Name</td>
+								<td th:text="${employee.statusEmployee.name}">StatusEmployee Name></td>
+								<td><a th:href="@{/compliances/code_of_ethic/{id}(id=${employee.id})}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i> Edycja</a></td>
+								<td>
+									<button type="button" class="btn btn-default" aria-label="Left Align">
+											<span class="glyphicon glyphicon-edit" aria-hidden="true">
+
+											</span>
+									</button>
+								</td>
+							</tr>
+						</table>
+					</div>
+					<!--Cialo#1 END -->
+				</div>
+			</div>
+		</div>
+		</div>
+
+	<!--JAVA SCRIPTS-->
+	<script>
+        w3.includeHTML();
+	</script>
+
+
+</div>
+
+</body>
+
+</html>

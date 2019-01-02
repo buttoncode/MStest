@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	  layout:decorator="layout/mainLayout">
+
+
+<head>
+	<title>Kodeks Etyki</title>
+	<script type="text/javascript" th:src="@{'/assets/w3/js/csi.js'}"></script>
+</head>
+
+<body>
+<div layout:fragment="topmenu">
+
+</div>
+<div layout:fragment="content">
+	<script>
+        function deleteCompliance(idc, ide){
+            console.log("aaaa")
+            $.ajax({
+//                url: "compliances/"+id+s/{ide}/edit/{idc}/{idsc},
+                url: "/compliances/code_of_ethic/"+ide+"/delete/"+idc,
+                type: 'DELETE',
+                success: function (result) {
+                    console.log("bbbb");
+                    window.location.assign("/compliances/code_of_ethic/"+ide);
+                    console.log(result);
+                    console.log("cccc");
+                    // Do something with the result
+                }
+            });
+        }
+	</script>
+
+	<script type="text/javascript" th:src="@{'/assets/bootstrap/bootstrap-datepicker.js'}"></script>
+	<script type="text/javascript" th:src="@{'/assets/bootstrap/js/bootstrap-datepicker.js'}"></script>
+	<script type="text/javascript" th:src="@{'/assets/bootstrap/js/bootstrap-datepicker.min.js'}"></script>
+
+
+	<div class="box box-warning">
+		<div class="box-header with-border">
+			<h3 class="box-title">Kodeks Etyki - Pracownik</h3>
+			<div class="box-tools">
+				<div class="input-group" style="width: 150px;" data-include="compliances_menu">
+				</div>
+			</div>
+		</div><!-- /.box-header -->
+		<div class="box-body">
+
+			<form role="form" th:action="@{/compliances/code_of_ethic/{id}}" th:object="${employee}" method="post"  enctype="multipart/form-data">
+				<p th:if="${#fields.hasErrors('global')}" th:errors="*{global}" th:class="text-red">Incorrect data</p>
+				<!-- text input -->
+				<div class="form-group col-md-2" th:classappend="${#fields.hasErrors('firstname')}? 'has-error'">
+					<label>Numer SAP</label>
+					<input type="text" class="form-control" name="numbersap" th:field="*{numbersap}" placeholder="Enter Section Name" readonly="readonly"/>
+					<p th:if="${#fields.hasErrors('numbersap')}" th:errors="*{numbersap}" th:class="text-red">Incorrect data</p>
+				</div>
+				<!-- text input -->
+				<div class="form-group col-md-3" th:classappend="${#fields.hasErrors('firstname')}? 'has-error'">
+					<label>Imie</label>
+					<input type="text" class="form-control" name="firstname" th:field="*{firstname}" placeholder="Enter Section Name" readonly="readonly"/>
+					<p th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}" th:class="text-red">Incorrect data</p>
+				</div>
+				<!-- text input -->
+				<div class="form-group col-md-3" th:classappend="${#fields.hasErrors('lastname')}? 'has-error'">
+					<label>Nazwisko</label>
+					<input type="text" class="form-control" name="lastname" th:field="*{lastname}" placeholder="Enter Section Name" readonly="readonly"/>
+					<p th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}" th:class="text-red">Incorrect data</p>
+				</div>
+				<!-- text input -->
+				<div class="form-group col-md-2" th:classappend="${#fields.hasErrors('statusEmployee.name')}? 'has-error'">
+					<label>Status pracownika</label>
+					<input type="text" class="form-control" name="statusEmployee.name" th:field="*{statusEmployee.name}" placeholder="Enter Section Name" readonly="readonly"/>
+					<p th:if="${#fields.hasErrors('statusEmployee.name')}" th:errors="*{statusEmployee.name}" th:class="text-red">Incorrect data</p>
+				</div>
+			</form>
+
+				<div class="table tab-content col-md-12">
+
+						<!--Cialo#1 START -->
+
+
+							<table class="table table-hover">
+
+								<h1>Compliance - Szkolenia</h1>
+
+								<tr>
+									<th style="width: 10px">#</th>
+									<th>Data szkolenia</th>
+									<th>Data waznosci szkolenia</th>
+									<th>Waznosc (lat)</th>
+									<th>Oswiadczenie</th>
+									<th></th>
+									<th>Status szkolenia</th>
+									<th>
+
+										<button type="button" class="btn btn-primary" aria-label="Left Align" data-toggle="modal" data-target="#myModal">
+											<span class="glyphicon glyphicon-plus" aria-hidden="true">
+
+                                    		</span>
+										</button>
+
+
+									</th>
+								</tr>
+
+								<tr th:each="complianceCodeOfEthic,iterStat : ${complianceEmployeeList}">
+									<td><span th:text="${iterStat.count}">1</span></td>
+									<td th:text="${complianceCodeOfEthic.dateoftrainging}">
+										<!--<input type="text" class="form-control" name="dateoftrainging" th:value="${complianceCodeOfEthic.dateoftrainging}" readonly="readonly"/>-->
+									</td>
+									<td th:text="${complianceCodeOfEthic.expirydateoftraining}">
+										<!--<input type="text" class="form-control" name="expirydateoftraining" th:value="${complianceCodeOfEthic.expirydateoftraining}" readonly="readonly"/>-->
+									</td>
+									<td th:text="${complianceCodeOfEthic.waitingtime.time}">
+										<!--<input type="text" class="form-control" name="waitingtime" th:value="${complianceCodeOfEthic.waitingtime.time}" readonly="readonly"/>-->
+									</td>
+
+
+									<td>
+										<a th:href="@{/compliances/code_of_ethic/open/{id}(id=${complianceCodeOfEthic.id})}" type="button" class="btn btn-default btn-sm" aria-label="Left Align">
+                                                <span class="glyphicon glyphicon-search" aria-hidden="true">
+
+                                                </span>
+										</a>
+
+										<a th:href="@{/compliances/code_of_ethic/download/{id}(id=${complianceCodeOfEthic.id})}" type="button" class="btn btn-default btn-sm" media="print" aria-label="Left Align">
+                                                <span class="glyphicon glyphicon-download" aria-hidden="true">
+
+                                                </span>
+										</a>
+									</td>
+									<td>
+
+									</td>
+									<td>
+										<input type="text" class="form-control" name="waitingtime" th:value="${complianceCodeOfEthic.statusCompliance.name}" readonly="readonly"/>
+
+									</td>
+
+
+									<td>
+										<button type="button" class="btn btn-default" aria-label="Left Align" data-toggle="modal">
+												<a th:href="@{/compliances/code_of_ethic/{ide}/edit/{idc}/{idsc} (ide=${complianceCodeOfEthic.employee.id}, idc=${complianceCodeOfEthic.id}, idsc=${complianceCodeOfEthic.statusCompliance.id})}"><i class="glyphicon glyphicon-transfer"></i></a>
+										</button>
+									</td>
+									<td>
+										<button class="btn btn-danger" th:onclick="'deleteCompliance(' + ${complianceCodeOfEthic.id} + ','+ ${complianceCodeOfEthic.employee.id} + ')'" ><i class="glyphicon glyphicon-minus"></i></button>
+
+									</td>
+								</tr>
+								<!--</form>-->
+							</table>
+				</div>
+
+			<!--</form>-->
+
+		</div><!-- /.box-body -->
+
+	</div><!-- /.box -->
+
+	<!-- WYSKAKUJACE OKNO -->
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+
+
+
+				<form role="form" th:action="@{/compliances/code_of_ethic/{ide}/create (ide=${employee.id})}" th:object="${complianceform}" method="POST" enctype="multipart/form-data">
+					<p th:if="${#fields.hasErrors('global')}" th:errors="*{global}" th:class="text-red">Incorrect data</p>
+					<!-- text input -->
+
+					<div class="modal-header">
+						<h4 class="modal-title"><b>Dodaj nowe szkolenie uzytkownikowi o numerze SAP: <a name="employeesap" th:text="${employee.numbersap}"></a> </b></h4>
+					</div>
+
+					<div class="container">
+						<br/>
+						<label>Czas waznosci szkolenia: </label>
+						<br/>
+						<label class="radio-inline">
+							<input type="radio" name="waitingtime" id="inlineRadio2" value="2" checked="checked"/> 2 lat
+						</label>
+
+						<br/>
+						<br/>
+
+								<label>Data przeprowadzonego szkolenia: </label>
+
+						<br/>
+
+								<div class="input-daterange input-group col-md-3 datepicker" id="datepicker">
+
+								<input type="datetime" autocomplete="off" class="input-sm form-control" name="dateoftrainging" id="start"/><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+
+								</div>
+
+
+						<br/>
+						<div class="input-daterange input-group col-md-3" th:classappend="${#fields.hasErrors('image')}? 'has-error'">
+							<label for="image">Dodaj Oswiadczenie: </label>
+							<input type="file" class="input-sm form-control" name="image" th:field="*{image}"/>
+							<p class="help-block">Wybierz plik z rozszerzeniem PDF</p>
+						</div>
+
+						<script>
+                            $('.datepicker').datepicker({
+//                                format: "yyyy-mm-dd",
+                                format: "dd/mm/yyyy",
+								weekStart: 1,
+                                todayBtn: "linked",
+                                clearBtn: true,
+                                multidate: false,
+                                forceParse: false,
+                                daysOfWeekHighlighted: "0,6",
+                                todayHighlight: true,
+                                toggleActive: true,
+                                endDate: '+30d'
+                            });
+						</script>
+
+					</div>
+					<br/>
+
+					<div class="modal-footer">
+						<button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-check"></i> Zapisz</button>
+						<button type="button" class="btn btn-sm btn-default" data-dismiss="modal"><i class="fa fa-ban"></i> Anuluj</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div><!-- endWYSKAKUJACE OKNO -->
+
+</div>
+<script>
+    w3.includeHTML();
+</script>
+</body>
+
+</html>
