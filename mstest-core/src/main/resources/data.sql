@@ -1,9 +1,13 @@
 delete from  employee_incident;
 delete from  task_books;
+delete from  compliance_code_of_ethic;
+delete from  compliance_anticorruption_policy;
+delete from  waiting_time;
 
 delete from  employees_data;
 delete from  employees;
 delete from  status_employee;
+delete from  status_compliance;
 
 delete from  cost_position_department;
 delete from  user_department_permission;
@@ -32,12 +36,23 @@ INSERT INTO employee_incident (id, name, description) VALUES
 (7, 'BM', 'Przywrocenie pracownika ten sam numer os.')
 ;
 
+INSERT INTO waiting_time (id, time) VALUES
+(1, '3'),
+(2, '5'),
+(3, '2')
+;
+
 INSERT INTO status_employee (id, name) VALUES
 (1, 'Aktywny'),
 (2, 'Zawieszony'),
 (3, 'Św.rehabilitacyjne'),
 (4, 'Nieaktywny'),
 (5, 'Zwolniony')
+;
+
+INSERT INTO status_compliance (id, name) VALUES
+(1, 'Aktywny'),
+(2, 'Nieaktywny')
 ;
 
 INSERT INTO companies (id, name, works, enterprise) VALUES
@@ -195,6 +210,10 @@ INSERT INTO permissions (id, name) VALUES
 (11, 'MANAGE_EMPLOYEES_TASKBOOK'),
 (12, 'MANAGE_EMPLOYEES_EDITEMPLOYEE'),
 
+(13, 'MANAGE_COMPLIANCES'),
+(14, 'MANAGE_COMPLIANCES_CODE_OF_ETHIC'),
+(15, 'MANAGE_COMPLIANCES_ANTICORRUPTION_POLICY'),
+
 (16, 'MANAGE_USERS'),
 (17, 'MANAGE_ROLES'),
 (18, 'MANAGE_PERMISSIONS')
@@ -214,9 +233,37 @@ INSERT INTO users (id, email, password, first_name, last_name) VALUES
 (3, 'jan.kowalski@gmail.pl', '$2a$10$ByIUiNaRfBKSV6urZoBBxe4UbJ/sS6u1ZaPORHF9AtNWAuVPVz1by', 'Jan','Kowalski')
 ;
 
+INSERT INTO compliance_code_of_ethic (id, date_of_training, waiting_time_id, expiry_date_of_training, employee_id, status_compliance_id, file_name, created_on) VALUES
+(1,'2018-01-12',1 ,'2021-01-12', 1,1, 'CeE',now()),
+(2,'2013-04-22',1 ,'2018-04-22', 2,1, 'CeE',now()),
+(3,'2014-12-12',2 ,'2017-12-12', 1,2, 'CeE',now()),
+(4,'2014-11-12',1 ,'2019-11-12', 2,1, 'CeE',now()),
+(5,'2013-03-12',1 ,'2018-03-12', 3,1, 'CeE',now()),
+(6,'2013-04-12',1 ,'2018-04-12', 5,1, 'CeE',now()),
+(7,'2012-11-12',1 ,'2017-11-12', 6,1, 'CeE',now()),
+(8,'2013-03-12',1 ,'2018-03-12', 4,1, 'CeE',now()),
+(9,'2013-03-12',1 ,'2030-03-12', 1,1, 'CeE',now()),
+(10,'2013-03-12',1 ,'2018-03-12', 8,2, 'CeE',now()),
+(11,'2013-03-12',1 ,'2018-03-12', 1,1, 'CeE',now())
+;
+
+INSERT INTO compliance_anticorruption_policy (id, date_of_training, waiting_time_id, expiry_date_of_training, employee_id, status_compliance_id, file_name, created_on) VALUES
+(1,'2018-01-12',1 ,'2021-01-12', 1,1, 'AP',now()),
+(2,'2013-04-22',1 ,'2018-04-22', 2,1, 'AP',now()),
+(3,'2014-12-12',2 ,'2017-12-12', 1,2, 'AP',now()),
+(4,'2014-11-12',1 ,'2019-11-12', 2,1, 'AP',now()),
+(5,'2013-03-12',1 ,'2018-03-12', 3,1, 'AP',now()),
+(6,'2013-04-12',1 ,'2018-04-12', 5,1, 'AP',now()),
+(7,'2012-11-12',1 ,'2017-11-12', 6,1, 'AP',now()),
+(8,'2013-03-12',1 ,'2018-03-12', 4,1, 'AP',now()),
+(9,'2013-03-12',1 ,'2030-03-12', 1,1, 'AP',now()),
+(10,'2013-03-12',1 ,'2018-03-12', 8,2, 'AP',now()),
+(11,'2013-03-12',1 ,'2018-03-12', 1,1, 'AP',now())
+;
+
 insert into role_permission(role_id, perm_id) values
 (1,1),(1,3),
-(1,7),(1,8),(1,9),(1,10),(1,11),(1,12),
+(1,7),(1,8),(1,9),(1,10),(1,11),(1,12),(1,13),(1,14),(1,15),
 (1,16),(1,17),(1,18)
 ;
 
