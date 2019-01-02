@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	  layout:decorator="layout/mainLayout">
+
+
+<head>
+	<title>Inwentaryzacja IT (Urządzenie) - Edycja</title>
+	<script type="text/javascript" th:src="@{'/assets/w3/js/csi.js'}"></script>
+</head>
+
+<body>
+<div layout:fragment="topmenu">
+
+</div>
+
+<div layout:fragment="content">
+
+	<script type="text/javascript" th:src="@{'/assets/bootstrap/bootstrap-datepicker.js'}"></script>
+	<script type="text/javascript" th:src="@{'/assets/bootstrap/js/bootstrap-datepicker.js'}"></script>
+	<script type="text/javascript" th:src="@{'/assets/bootstrap/js/bootstrap-datepicker.min.js'}"></script>
+
+	<div class="box box-warning">
+		<div class="box-header with-border">
+			<h3 class="box-title">Inwentaryzacja IT (Urządzenie) - Edycja</h3>
+			<div class="box-tools">
+<!--				<div class="input-group" style="width: 150px;" data-include="stocktaking_menu">
+				</div>-->
+			</div>
+		</div><!-- /.box-header -->
+		<div class="box-body">
+
+			<form role="form" th:action="@{/stocktaking/{id}}" th:object="${stocktakingForm}" method="post"  enctype="multipart/form-data">
+				<p th:if="${#fields.hasErrors('global')}" th:errors="*{global}" th:class="text-red">Incorrect data</p>
+				<div class="col-md-12">
+					<div class="form-group col-md-2" th:classappend="${#fields.hasErrors('stocktakingnumberms')}? 'has-error'">
+						<label>Inw. numer MegaSerwis</label>
+						<input type="text" class="form-control" name="stocktakingnumberms" th:field="*{stocktakingnumberms}" placeholder="Enter Section Name" readonly="readonly"/>
+						<p th:if="${#fields.hasErrors('stocktakingnumberms')}" th:errors="*{stocktakingnumberms}" th:class="text-red">Incorrect data</p>
+					</div>
+					<div class="form-group col-md-2" th:classappend="${#fields.hasErrors('stocktakingnumbersap')}? 'has-error'">
+						<label>Inw. numer SAP</label>
+						<input type="text" class="form-control" name="stocktakingnumbersap" th:field="*{stocktakingnumbersap}" placeholder="Enter Section Name" readonly="readonly"/>
+						<p th:if="${#fields.hasErrors('stocktakingnumbersap')}" th:errors="*{stocktakingnumbersap}" th:class="text-red">Incorrect data</p>
+					</div>
+					<div class="form-group col-md-2" th:classappend="${#fields.hasErrors('deviceType.name')}? 'has-error'">
+						<label>Typ urzadzenia</label>
+						<input type="text" class="form-control" name="deviceType.name" th:field="*{deviceType.name}" placeholder="Enter Section Name" readonly="readonly"/>
+						<p th:if="${#fields.hasErrors('deviceType.name')}" th:errors="*{deviceType.name}" th:class="text-red">Incorrect data</p>
+					</div>
+				</div>
+
+				<div class="col-md-12">
+					<div class="form-group col-md-2" th:classappend="${#fields.hasErrors('producer.name')}? 'has-error'">
+						<label>Producent</label>
+						<input type="text" class="form-control" name="producer.name" th:field="*{producer.name}" placeholder="Enter Section Name" readonly="readonly"/>
+						<p th:if="${#fields.hasErrors('producer.name')}" th:errors="*{producer.name}" th:class="text-red">Incorrect data</p>
+					</div>
+					<div class="form-group col-md-2" th:classappend="${#fields.hasErrors('model')}? 'has-error'">
+						<label>Model</label>
+						<input type="text" class="form-control" name="model" th:field="*{model}" placeholder="Enter Section Name" readonly="readonly"/>
+						<p th:if="${#fields.hasErrors('model')}" th:errors="*{model}" th:class="text-red">Incorrect data</p>
+					</div>
+					<div class="form-group col-md-2" th:classappend="${#fields.hasErrors('productname')}? 'has-error'">
+						<label>Product name</label>
+						<input type="text" class="form-control" name="productname" th:field="*{productname}" placeholder="Enter Section Name" readonly="readonly"/>
+						<p th:if="${#fields.hasErrors('productname')}" th:errors="*{productname}" th:class="text-red">Incorrect data</p>
+					</div>
+					<div class="form-group col-md-2" th:classappend="${#fields.hasErrors('serialnumber')}? 'has-error'">
+						<label>Numer Seryjny</label>
+						<input type="text" class="form-control" name="serialnumber" th:field="*{serialnumber}" placeholder="Enter Section Name" readonly="readonly"/>
+						<p th:if="${#fields.hasErrors('serialnumber')}" th:errors="*{serialnumber}" th:class="text-red">Incorrect data</p>
+					</div>
+				</div>
+
+				<div class="col-md-12">
+					<div class="form-group col-md-10" th:classappend="${#fields.hasErrors('description')}? 'has-error'">
+						<label>Opis</label>
+						<input type="text" class="form-control" name="description" th:field="*{description}" placeholder="Enter Section Name" readonly="readonly"/>
+						<p th:if="${#fields.hasErrors('description')}" th:errors="*{description}" th:class="text-red">Incorrect data</p>
+					</div>
+					<div class="form-group col-md-2" th:classappend="${#fields.hasErrors('createdOn')}? 'has-error'">
+						<label>Created</label>
+						<input type="text" class="form-control" name="createdOn" th:field="*{createdOn}" placeholder="Enter Section Name" readonly="readonly"/>
+						<p th:if="${#fields.hasErrors('createdOn')}" th:errors="*{createdOn}" th:class="text-red">Incorrect data</p>
+					</div>
+				</div>
+			</form><!--</form>-->
+		</div><!-- /.box-body -->
+	</div><!-- /.box -->
+
+
+	<div class="box box-default">
+		<div class="box-header with-border">
+			<h3 class="box-title">Dane dostawcy</h3>
+			<a th:href="@{/providers/{id}(id=${stocktakingForm.delivery.provider.id})}" class="col-md-offset-10 btn btn-sm btn-default"><i class="fa fa-edit"></i>Podgląd</a>
+		</div><!-- /.box-header -->
+		<div class="box-body">
+			<form role="form" th:action="@{/stocktaking/{id}}" th:object="${stocktakingForm}" method="post"  enctype="multipart/form-data">
+				<p th:if="${#fields.hasErrors('global')}" th:errors="*{global}" th:class="text-red">Incorrect data</p>
+				<div class="col-md-12">
+					<div class="form-group col-md-4" th:classappend="${#fields.hasErrors('delivery.provider.name')}? 'has-error'">
+						<label>Nazwa dostawcy</label>
+						<input type="text" class="form-control" name="delivery.provider.name" th:field="*{delivery.provider.name}" placeholder="Enter Section Name" readonly="readonly"/>
+						<p th:if="${#fields.hasErrors('delivery.provider.name')}" th:errors="*{delivery.provides.name}" th:class="text-red">Incorrect data</p>
+					</div>
+					<div class="form-group col-md-3" th:classappend="${#fields.hasErrors('delivery.provider.nipnumber')}? 'has-error'">
+						<label>NIP dostawcy</label>
+						<input type="text" class="form-control" name="delivery.provider.nipnumber" th:field="*{delivery.provider.nipnumber}" placeholder="Enter Section Name" readonly="readonly"/>
+						<p th:if="${#fields.hasErrors('delivery.provider.nipnumber')}" th:errors="*{delivery.provider.nipnumber}" th:class="text-red">Incorrect data</p>
+					</div>
+					<div class="form-group col-md-3" th:classappend="${#fields.hasErrors('delivery.fvnumber')}? 'has-error'">
+						<label>Numer Faktury</label>
+						<input type="text" class="form-control" name="delivery.fvnumber" th:field="*{delivery.fvnumber}" placeholder="Enter Section Name" readonly="readonly"/>
+						<p th:if="${#fields.hasErrors('delivery.fvnumber')}" th:errors="*{delivery.fvnumber}" th:class="text-red">Incorrect data</p>
+					</div>
+					<div class="form-group col-md-2" th:classappend="${#fields.hasErrors('delivery.dateofbought')}? 'has-error'">
+						<label>Data kupna</label>
+						<input type="text" class="form-control" name="dateofbought" th:field="*{delivery.dateofbought}" placeholder="Enter Section Name" readonly="readonly"/>
+						<p th:if="${#fields.hasErrors('delivery.dateofbought')}" th:errors="*{delivery.dateofbought}" th:class="text-red">Incorrect data</p>
+					</div>
+				</div>
+			</form>
+		</div><!-- /.box-body -->
+	</div>
+
+	<div class="box box-default" th:if="${stocktakingForm.deviceType.type == 1}">
+		<div class="box-body">
+
+			<div class="table tab-content col-md-12" th:if="${stocktakingForm.stocktakingSoftwares != null} ">
+
+				<!--Cialo#1 START -->
+
+				<table class="table table-hover">
+
+					<h3>Oprogramowanie dodatkowe (inwentarzowe)</h3>
+
+					<tr>
+						<th style="width: 10px">#</th>
+						<th>Inw. numer MegaSerwis</th>
+						<th>Inw. numer SAP</th>
+						<th>Producent</th>
+						<th>Rodzaj</th>
+						<th>Model</th>
+						<th>Klucz</th>
+						<th>Opis</th>
+						<th>Zakupiono</th>
+						<th>
+							<button type="button" class="btn btn-primary" aria-label="Left Align" data-toggle="modal" data-target="#myModal">
+											<span class="glyphicon glyphicon-plus" aria-hidden="true">
+                                    		</span>
+							</button>
+						</th>
+					</tr>
+					<tr th:each="stocktakingForm.stocktakingSoftwares,iterStat : ${stocktakingForm.stocktakingSoftwares}">
+						<td><span th:text="${iterStat.count}">1</span></td>
+						<td th:text="${stocktakingForm.stocktakingSoftwares.get(__${iterStat.index}__).stocktakingnumberms}"></td>
+						<td th:text="${stocktakingForm.stocktakingSoftwares.get(__${iterStat.index}__).stocktakingnumbersap}"></td>
+						<td th:text="${stocktakingForm.stocktakingSoftwares.get(__${iterStat.index}__).producer.name}"></td>
+						<td th:text="${stocktakingForm.stocktakingSoftwares.get(__${iterStat.index}__).software.name}"></td>
+						<td th:text="${stocktakingForm.stocktakingSoftwares.get(__${iterStat.index}__).model}"></td>
+						<td th:text="${stocktakingForm.stocktakingSoftwares.get(__${iterStat.index}__).keynumber}"></td>
+						<td th:text="${stocktakingForm.stocktakingSoftwares.get(__${iterStat.index}__).description}"></td>
+						<td th:text="${stocktakingForm.stocktakingSoftwares.get(__${iterStat.index}__).delivery.dateofbought}"></td>
+						<td><a th:href="@{/stocktakings/{id}(id=${stocktakingForm.stocktakingSoftwares.get(__${iterStat.index}__).id})}" class="btn btn-sm btn-default"><i class="fa fa-edit"></i>Podgląd</a></td>
+					</tr>
+					<!--</form>-->
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<div class="box box-default" th:if="${stocktakingForm.deviceType.type == 1}">
+		<div class="box-body">
+
+			<div class="table tab-content col-md-12">
+
+				<!--Cialo#1 START -->
+
+				<table class="table table-hover">
+
+					<h3>Oprogramowanie dodatkowe (stale)</h3>
+
+					<tr>
+						<th style="width: 10px">#</th>
+						<th>Producent</th>
+						<th>Rodzaj</th>
+						<th>Model</th>
+						<th>Klucz</th>
+						<th>Opis</th>
+						<th>
+							<button type="button" class="btn btn-primary" aria-label="Left Align" data-toggle="modal" data-target="#myModal">
+											<span class="glyphicon glyphicon-plus" aria-hidden="true">
+                                    		</span>
+							</button>
+						</th>
+					</tr>
+					<tr th:if="${not #lists.isEmpty(stocktakingForm.stocktakingSoftwareDevices)}" th:each="stocktakingForm.stocktakingSoftwareDevices,iterStat : ${stocktakingForm}">
+						<td><span th:text="${iterStat.count}">1</span></td>
+						<td th:text="${stocktakingForm.stocktakingSoftwareDevices.get(__${iterStat.index}__).producer.name}"></td>
+						<td th:text="${stocktakingForm.stocktakingSoftwareDevices.get(__${iterStat.index}__).software.name}"></td>
+						<td th:text="${stocktakingForm.stocktakingSoftwareDevices.get(__${iterStat.index}__).model}"></td>
+						<td th:text="${stocktakingForm.stocktakingSoftwareDevices.get(__${iterStat.index}__).keynumber}">X</td>
+						<td th:text="${stocktakingForm.stocktakingSoftwareDevices.get(__${iterStat.index}__).description}"></td>
+						<td></td>
+					</tr>
+					<!--</form>-->
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<div class="box box-default" th:if="${stocktakingForm.deviceType.type == 1}">
+		<div class="box-body">
+			<div class="table tab-content col-md-12">
+
+				<!--Cialo#1 START -->
+
+				<table class="table table-hover">
+
+					<h3>Oprogramowanie dodatkowe (okresowe)</h3>
+
+					<tr>
+						<th style="width: 10px">#</th>
+						<th>Producent</th>
+						<th>Rodzaj</th>
+						<th>Model</th>
+						<th>Klucz</th>
+						<th>Opis</th>
+						<th>
+							<button type="button" class="btn btn-primary" aria-label="Left Align" data-toggle="modal" data-target="#myModal">
+											<span class="glyphicon glyphicon-plus" aria-hidden="true">
+                                    		</span>
+							</button>
+						</th>
+					</tr>
+					<tr th:if="${not #lists.isEmpty(stocktakingForm.stocktakingSoftwarePeriodics)}" th:each="stocktakingForm.stocktakingSoftwarePeriodics,iterStat : ${stocktakingForm}">
+						<td><span th:text="${iterStat.count}">1</span></td>
+						<td th:text="${stocktakingForm.stocktakingSoftwarePeriodics.get(__${iterStat.index}__).producer.name}"></td>
+						<td th:text="${stocktakingForm.stocktakingSoftwarePeriodics.get(__${iterStat.index}__).software.name}"></td>
+						<td th:text="${stocktakingForm.stocktakingSoftwarePeriodics.get(__${iterStat.index}__).model}"></td>
+						<td th:text="${stocktakingForm.stocktakingSoftwarePeriodics.get(__${iterStat.index}__).keynumber}">X</td>
+						<td th:text="${stocktakingForm.stocktakingSoftwarePeriodics.get(__${iterStat.index}__).description}"></td>
+						<td></td>
+					</tr>
+					<!--</form>-->
+				</table>
+			</div>
+		</div>
+	</div>
+	<div class="box box-default">
+		<div class="box-body">
+			<div class="table tab-content col-md-12">
+
+				<!--Cialo#1 START -->
+
+				<table class="table table-hover">
+
+					<h3>Uzytkownicy</h3>
+
+					<tr>
+						<th style="width: 10px">#</th>
+						<th>Numer SAP</th>
+						<th>Imie</th>
+						<th>Nazwisko</th>
+						<th>Status pracownika</th>
+						<th>Status inwentarzowy</th>
+						<th>
+							<button type="button" class="btn btn-primary" aria-label="Left Align" data-toggle="modal" data-target="#myModal">
+											<span class="glyphicon glyphicon-plus" aria-hidden="true">
+                                    		</span>
+							</button>
+						</th>
+					</tr>
+					<tr th:if="${stocktakingForm.employees != null}" th:each="stocktakingForm,iterStat : ${stocktakingForm}">
+						<td><span th:text="${iterStat.count}">1</span></td>
+						<td th:text="${stocktakingForm.employees.numbersap}"></td>
+						<td th:text="${stocktakingForm.employees.firstname}"></td>
+						<td th:text="${stocktakingForm.employees.lastname}"></td>
+						<td th:text="${stocktakingForm.employees.statusEmployee.name}"></td>
+						<td th:text="${stocktakingForm.employees.statusEmployee.name}"></td>
+						<td><a th:href="@{/stocktakings/employees/{id}(id=${stocktakingForm.employees.id})}" class="btn btn-sm btn-default"><i class="fa fa-edit"></i>Podgląd</a></td>
+					</tr>
+					<!--</form>-->
+				</table>
+			</div>
+
+		</div><!-- /.box-body -->
+	</div>
+</div>
+
+
+<script>
+    w3.includeHTML();
+</script>
+</body>
+
+</html>

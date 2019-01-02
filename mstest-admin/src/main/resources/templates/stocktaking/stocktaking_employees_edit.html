@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	  layout:decorator="layout/mainLayout">
+
+<head>
+	<title>Edycja Pracownika</title>
+	<script type="text/javascript" th:src="@{'/assets/w3/js/csi.js'}"></script>
+</head>
+<body>
+
+<div layout:fragment="content">
+
+	<script type="text/javascript" th:src="@{'/assets/bootstrap/bootstrap-datepicker.js'}"></script>
+	<script type="text/javascript" th:src="@{'/assets/bootstrap/js/bootstrap-datepicker.js'}"></script>
+	<script type="text/javascript" th:src="@{'/assets/bootstrap/js/bootstrap-datepicker.min.js'}"></script>
+
+	<div class="box box-warning">
+		<div class="box-header with-border">
+			<h3 class="box-title">Pracownik</h3>
+			<div class="box-tools">
+			</div>
+		</div><!-- /.box-header -->
+		<div class="box-body">
+
+			<form role="form" th:action="@{/stocktakings/employees/{id}}" th:object="${employee}" method="post"  enctype="multipart/form-data">
+				<p th:if="${#fields.hasErrors('global')}" th:errors="*{global}" th:class="text-red">Incorrect data</p>
+				<!-- text input -->
+				<div class="form-group col-md-2" th:classappend="${#fields.hasErrors('firstname')}? 'has-error'">
+					<label>Numer SAP</label>
+					<input type="text" class="form-control" name="numbersap" th:field="*{numbersap}" placeholder="Enter Section Name" readonly="readonly"/>
+					<p th:if="${#fields.hasErrors('numbersap')}" th:errors="*{numbersap}" th:class="text-red">Incorrect data</p>
+				</div>
+				<!-- text input -->
+				<div class="form-group col-md-3" th:classappend="${#fields.hasErrors('firstname')}? 'has-error'">
+					<label>Imie</label>
+					<input type="text" class="form-control" name="firstname" th:field="*{firstname}" placeholder="Enter Section Name" readonly="readonly"/>
+					<p th:if="${#fields.hasErrors('firstname')}" th:errors="*{firstname}" th:class="text-red">Incorrect data</p>
+				</div>
+				<!-- text input -->
+				<div class="form-group col-md-3" th:classappend="${#fields.hasErrors('lastname')}? 'has-error'">
+					<label>Nazwisko</label>
+					<input type="text" class="form-control" name="lastname" th:field="*{lastname}" placeholder="Enter Section Name" readonly="readonly"/>
+					<p th:if="${#fields.hasErrors('lastname')}" th:errors="*{lastname}" th:class="text-red">Incorrect data</p>
+				</div>
+				<!-- text input -->
+				<div class="form-group col-md-2" th:classappend="${#fields.hasErrors('lastname')}? 'has-error'">
+					<label>Status</label>
+					<input type="text" class="form-control" name="statusEmployee.name" th:field="*{statusEmployee.name}" placeholder="Enter Section Name" readonly="readonly"/>
+					<p th:if="${#fields.hasErrors('statusEmployee.name')}" th:errors="*{statusEmployee.name}" th:class="text-red">Incorrect data</p>
+				</div>
+
+				<div class="table tab-content col-md-12">
+
+						<!--Cialo#1 START -->
+
+							<table class="table table-hover">
+								<h1>Angaz</h1>
+								<tr>
+									<th style="width: 10px">#</th>
+									<th>Stanowisko</th>
+									<th>Grupa</th>
+									<th>Data rozpoczecia</th>
+									<th>Firma</th>
+									<th>Pion</th>
+									<th>Dzial</th>
+									<th>Skrot</th>
+									<!--<th>Status</th>-->
+									<th></th>
+									<th></th>
+								</tr>
+
+
+								<tr th:each="employee.employeedata,iterStat : ${employee}">
+									<td><span th:text="${iterStat.count}">1</span></td>
+									<td th:text="${employee.employeedata.get(__${iterStat.index}__).workposition}">Employeedata Workposition</td>
+									<td th:text="${employee.employeedata.get(__${iterStat.index}__).groupdesignation}">Employeedata Groupdesignation</td>
+									<td th:text="${employee.employeedata.get(__${iterStat.index}__).beginningofvalidity}">Employeedata Beginningofvalidity</td>
+									<td th:text="${employee.employeedata.get(__${iterStat.index}__).department.sectionTop != null} ? ${employee.employeedata.get(__${iterStat.index}__).department.sectionTop.company.name} : ${employee.employeedata.get(__${iterStat.index}__).department.departmentMiddle.sectionTop.company.name}"></td>
+									<td th:text="${employee.employeedata.get(__${iterStat.index}__).department.sectionTop != null} ? ${employee.employeedata.get(__${iterStat.index}__).department.sectionTop.name} : ${employee.employeedata.get(__${iterStat.index}__).department.departmentMiddle.sectionTop.name}"></td>
+									<td th:text="${employee.employeedata.get(__${iterStat.index}__).department.name}">Departament Name</td>
+									<td th:text="${employee.employeedata.get(__${iterStat.index}__).department.shortname}">Departament Shortname</td>
+									<td></td>
+									<td></td>
+								</tr>
+							</table>
+				</div>
+			</form>
+		</div>
+		<!-- /.box-body -->
+	</div>
+
+
+
+<div class="box box-default">
+	<div class="box-body">
+		<div class="table tab-content col-md-12">
+
+			<!--Cialo#1 START -->
+
+			<table class="table table-hover">
+
+				<h3>Urzadzenia na stanie</h3>
+
+				<tr>
+					<th style="width: 10px">#</th>
+					<th>Inw. numer MegaSerwis</th>
+					<th>Inw. numer SAP</th>
+					<th>Producent</th>
+					<th>Model</th>
+					<th>Opis</th>
+					<th>Zakupiono</th>
+					<th>
+						<button type="button" class="btn btn-primary" aria-label="Left Align" data-toggle="modal" data-target="#myModal">
+											<span class="glyphicon glyphicon-plus" aria-hidden="true">
+                                    		</span>
+						</button>
+					</th>
+				</tr>
+				<tr th:each="employee.stocktakingHardwares,iterStat : ${employee.stocktakingHardwares}">
+					<td><span th:text="${iterStat.count}">1</span></td>
+					<td th:text="${employee.stocktakingHardwares.get(__${iterStat.index}__).stocktakingnumberms}"></td>
+					<td th:text="${employee.stocktakingHardwares.get(__${iterStat.index}__).stocktakingnumbersap}"></td>
+					<td th:text="${employee.stocktakingHardwares.get(__${iterStat.index}__).producer.name}"></td>
+					<td th:text="${employee.stocktakingHardwares.get(__${iterStat.index}__).model}"></td>
+					<td th:text="${employee.stocktakingHardwares.get(__${iterStat.index}__).description}"></td>
+					<td th:text="${employee.stocktakingHardwares.get(__${iterStat.index}__).delivery.dateofbought}"></td>
+					<td><a th:href="@{/stocktakings/{id}(id=${employee.stocktakingHardwares.get(__${iterStat.index}__).id})}" class="btn btn-sm btn-default"><i class="fa fa-edit"></i>Edycja</a></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+
+
+<div class="box box-default">
+	<div class="box-body">
+		<div class="table tab-content col-md-12">
+
+			<!--Cialo#1 START -->
+
+			<table class="table table-hover">
+
+				<h3>Oprogramowanie na stanie</h3>
+
+				<tr>
+					<th style="width: 10px">#</th>
+					<th>Inw. numer MegaSerwis</th>
+					<th>Inw. numer SAP</th>
+					<th>Producent</th>
+					<th>Rodzaj</th>
+					<th>Model</th>
+					<th>Opis</th>
+					<th>Zakupiono</th>
+					<th>
+						<button type="button" class="btn btn-primary" aria-label="Left Align" data-toggle="modal" data-target="#myModal">
+											<span class="glyphicon glyphicon-plus" aria-hidden="true">
+                                    		</span>
+						</button>
+					</th>
+				</tr>
+				<tr th:each="employee.stocktakingHardwares,iterStat : ${employee.stocktakingHardwares}">
+				 <tr th:each="employee.stocktakingHardwares.stocktakingSoftwares,iterStat2 : ${employee}">
+					<td><span th:text="${iterStat.count}">1</span></td>
+					<td th:text="${employee.stocktakingHardwares.get(__${iterStat.index}__).stocktakingSoftwares.get(__${iterStat2.index}__).stocktakingnumberms}"></td>
+					<td th:text="${employee.stocktakingHardwares.get(__${iterStat.index}__).stocktakingSoftwares.get(__${iterStat2.index}__).stocktakingnumbersap}"></td>
+					<td th:text="${employee.stocktakingHardwares.get(__${iterStat.index}__).stocktakingSoftwares.get(__${iterStat2.index}__).producer.name}"></td>
+					<td th:text="${employee.stocktakingHardwares.get(__${iterStat.index}__).stocktakingSoftwares.get(__${iterStat2.index}__).software.name}"></td>
+					<td th:text="${employee.stocktakingHardwares.get(__${iterStat.index}__).stocktakingSoftwares.get(__${iterStat2.index}__).model}"></td>
+					<td th:text="${employee.stocktakingHardwares.get(__${iterStat.index}__).stocktakingSoftwares.get(__${iterStat2.index}__).description}"></td>
+					<td th:text="${employee.stocktakingHardwares.get(__${iterStat.index}__).stocktakingSoftwares.get(__${iterStat2.index}__).delivery.dateofbought}"></td>
+					<td><a th:href="@{/stocktakings/{id}(id=${employee.stocktakingHardwares.get(__${iterStat.index}__).stocktakingSoftwares.get(__${iterStat2.index}__).id})}" class="btn btn-sm btn-default"><i class="fa fa-edit"></i>Edycja</a></td>
+				 </tr>
+				</tr>
+			</table>
+		</div>
+	</div>
+</div>
+</div>
+<script>
+    w3.includeHTML();
+</script>
+</body>
+
+</html>

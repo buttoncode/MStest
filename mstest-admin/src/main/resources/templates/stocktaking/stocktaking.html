@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      layout:decorator="layout/mainLayout">
+
+<head>
+    <title>Ksiazka Inwetarzowa</title>
+    <script type="text/javascript" th:src="@{'/assets/w3/js/tablesorter.js'}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> <!--pomoze z rozwijajacym sie dolem-->
+</head>
+
+<body>
+
+<div layout:fragment="content">
+
+        <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="tab">
+                    <div class="box-header">
+                        <h3 class="box-title">Inwentaryzacja IT</h3>
+                        <div class="box-tools">
+                        </div>
+                    </div>
+                    <!-- Nav tabs -->
+                    <div class="table tab-content">
+                        <div role="tabpanel" class="tab-pane fade in active" id="stocktakings">
+
+                            <!--Cialo#1 START -->
+                          <div class="box-body table-responsive no-padding">
+
+                              <table class="table table-hover">
+                                    <tr>
+                                    <form role="form" th:action="@{/stocktakings}" th:object="${stocktakingsearch}" method="POST">
+
+                                      <th style="width: 10px">#</th>
+                                      <th>
+                                          <div>
+                                              <input type="text" class="form-control input-sm" name="stocktakingnumbersap" th:field="*{stocktakingnumbersap}"/>
+                                          </div>
+                                      </th>
+                                      <th>
+                                          <div>
+                                              <input type="text" class="form-control input-sm" name="stocktakingnumberms" th:field="*{stocktakingnumberms}"/>
+                                          </div>
+                                      </th>
+                                      <th>
+                                          <div>
+                                              <input type="text" class="form-control input-sm" name="devicetypename" th:field="*{devicetypename}"/>
+                                          </div>
+                                      </th>
+                                      <th>
+                                          <div>
+                                              <input type="text" class="form-control input-sm" name="employeenumbersap" th:field="*{employeenumbersap}"/>
+                                          </div>
+                                      </th>
+                                      <th>
+                                          <div>
+                                              <input type="text" class="form-control input-sm" name="employeefirstname" th:field="*{employeefirstname}"/>
+                                          </div>
+                                      </th>
+                                      <th>
+                                          <div>
+                                              <input type="text" class="form-control input-sm" name="employeelastname" th:field="*{employeelastname}"/>
+                                          </div>
+                                      </th>
+                                      <th>
+                                          <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Szukaj</button>
+                                      </th>
+                                    </form>
+                                      <th>
+                                          <a th:href="@{/stocktakings}" method="GET" class="btn btn-sm btn-default"><i class="fa fa-remove"></i> Wyczysc</a>
+                                      </th>
+
+                                  </tr>
+
+                                  <tr>
+                                      <th style="width: 10px">#</th>
+
+                                      <th>Numer inw. SAP</th>
+                                      <th>Numer inw. MS</th>
+                                      <th>Rodzaj urzadzenia</th>
+
+                                      <th>Numer SAP</th>
+                                      <th>Imie</th>
+                                      <th>Nazwisko</th>
+
+                                      <th></th>
+                                      <th></th>
+                                  </tr>
+
+                                  <tr th:each="stocktaking,iterStat : ${stocktaking}">
+                                      <td><span th:text="${iterStat.count}">1</span></td>
+
+                                      <td th:text="${stocktaking.stocktakingnumbersap}">Status Name</td>
+                                      <td th:text="${stocktaking.stocktakingnumberms}">Status Name</td>
+                                      <td th:text="${stocktaking.deviceType.name}">Status Name</td>
+                                      <td th:text="${stocktaking?.employees?.numbersap}">Status Name</td>
+                                      <td th:text="${stocktaking?.employees?.firstname}">Status Name</td>
+                                      <td th:text="${stocktaking?.employees?.lastname}">Status Name</td>
+
+                                      <td>
+                                          <a th:href="@{/stocktakings/{id}(id=${stocktaking.id})}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>Edycja</a>
+                                      </td>
+                                      <td></td>
+                                  </tr>
+
+                              </table>
+                          </div>
+                          <!--Cialo#1 END -->
+                      </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+</html>

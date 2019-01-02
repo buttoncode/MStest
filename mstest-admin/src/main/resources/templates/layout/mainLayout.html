@@ -138,6 +138,13 @@
               <li th:class="${CURRENT_MENU == 'Compliances_anticorruption_policy'}? 'active' : ''" sec:authorize="hasRole('ROLE_MANAGE_COMPLIANCES_ANTICORRUPTION_POLICY')"><a href="#" th:href="@{'/compliances/anticorruption_policy'}"><i class="fa fa-graduation-cap"></i><span>Polityka Antykorupcyjna</span></a></li>
             </div>
 
+            <li th:class="${CURRENT_MENU == 'Stocktakings'}? 'active' : ''"  sec:authorize="hasRole('ROLE_MANAGE_STOCKTAKING')"><a href="#collapseStocktaking" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-chevron-down"></i><span> Inwentaryzacja </span></a></li>
+            <div th:class="${CURRENT_MENU == 'Stocktakings'}? 'sidebar-menu' : 'collapse sidebar-menu'" id="collapseStocktaking">
+              <li th:class="${CURRENT_MENU == 'Stocktakings'}? 'active' : ''"  sec:authorize="hasRole('ROLE_MANAGE_STOCKTAKING')"><a href="#" th:href="@{'/stocktakings'}"><span>Zestawienie IT</span></a></li>
+              <li th:class="${CURRENT_MENU == 'Providers'}? 'active' : ''"  sec:authorize="hasRole('ROLE_MANAGE_PROVIDERS')"><a href="#" th:href="@{'/providers'}"><span>Dostawcy IT</span></a></li>
+              <li th:class="${CURRENT_MENU == 'Stocktakings_configure'}? 'active' : ''"  sec:authorize="hasRole('ROLE_MANAGE_STOCKTAKING_CONFIGURE')"><a href="#" th:href="@{'/stocktakings/configure'}"><span>Configuracja</span></a></li>
+            </div>
+
             <li th:class="${CURRENT_MENU == 'Users'}? 'active' : ''"  sec:authorize="hasRole('ROLE_MANAGE_USERS')"><a href="#" th:href="@{'/users'}"><i class="fa fa-users"></i><span> Users </span></a></li>
             <li th:class="${CURRENT_MENU == 'Roles'}? 'active' : ''"  sec:authorize="hasRole('ROLE_MANAGE_ROLES')"><a href="#" th:href="@{'/roles'}"><i class="fa fa-user"></i><span> Roles </span></a></li>
             <li th:class="${CURRENT_MENU == 'Permissions'}? 'active' : ''"  sec:authorize="hasRole('ROLE_MANAGE_PERMISSIONS')"><a href="#" th:href="@{'/permissions'}"><i class="fa fa-shield"></i><span> Permissions </span></a></li>

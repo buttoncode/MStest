@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+      layout:decorator="layout/mainLayout">
+
+<head>
+    <title>Inwentaryzacja IT - Dostawca</title>
+    <script type="text/javascript" th:src="@{'/assets/w3/js/tablesorter.js'}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+</head>
+
+<body>
+
+<div layout:fragment="content">
+
+        <div class="row">
+        <div class="col-md-12">
+            <div class="box">
+                <div class="tab">
+                    <div class="box-header">
+                        <h3 class="box-title">Inwentaryzacja IT - Dostawca</h3>
+                        <div class="box-tools">
+
+                        </div>
+                    </div>
+                    <!-- Nav tabs -->
+                    <div class="table tab-content">
+                        <div role="tabpanel" class="tab-pane fade in active" id="stocktakings">
+
+                            <!--Cialo#1 START -->
+                          <div class="box-body table-responsive no-padding">
+
+                              <table class="table table-hover">
+                                    <tr>
+                                    <form role="form" th:action="@{/providers}" th:object="${stocktakingsearch}" method="POST">
+
+                                      <th style="width: 10px">#</th>
+
+                                      <th>
+                                          <button type="submit" class="btn btn-sm btn-primary"><i class="fa fa-search"></i> Szukaj</button>
+                                      </th>
+                                    </form>
+                                      <th>
+                                          <a th:href="@{/providers}" method="GET" class="btn btn-sm btn-default"><i class="fa fa-remove"></i> Wyczysc</a>
+                                      </th>
+
+                                  </tr>
+
+                                  <tr>
+                                      <th style="width: 10px">#</th>
+
+                                      <th>Nazwa</th>
+                                      <th>Ulica</th>
+                                      <th>Kod</th>
+
+                                      <th>Miasto</th>
+                                      <th>NIP</th>
+
+                                      <th></th>
+                                      <th></th>
+                                  </tr>
+
+                                  <tr th:each="providers,iterStat : ${providers}">
+                                      <td><span th:text="${iterStat.count}">1</span></td>
+
+                                      <td th:text="${providers.name}">Status Name</td>
+                                      <td th:text="${providers.street}">Status Name</td>
+                                      <td th:text="${providers.postcode}">Status Name</td>
+                                      <td th:text="${providers.city}">Status Name</td>
+                                      <td th:text="${providers.nipnumber}">Status Name</td>
+                                      <td>
+                                          <a th:href="@{/providers/{id}(id=${providers.id})}" class="btn btn-sm btn-primary"><i class="fa fa-edit"></i>Edycja</a>
+                                      </td>
+                                      <td></td>
+                                  </tr>
+
+                              </table>
+                          </div>
+                          <!--Cialo#1 END -->
+                      </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+</body>
+
+</html>

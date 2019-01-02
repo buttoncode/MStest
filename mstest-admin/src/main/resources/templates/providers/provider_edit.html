@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	  xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3"
+	  layout:decorator="layout/mainLayout">
+
+
+<head>
+	<title>Dostawca IT - Edycja</title>
+	<script type="text/javascript" th:src="@{'/assets/w3/js/csi.js'}"></script>
+</head>
+
+<body>
+<div layout:fragment="topmenu">
+
+</div>
+
+<div layout:fragment="content">
+
+	<script type="text/javascript" th:src="@{'/assets/bootstrap/bootstrap-datepicker.js'}"></script>
+	<script type="text/javascript" th:src="@{'/assets/bootstrap/js/bootstrap-datepicker.js'}"></script>
+	<script type="text/javascript" th:src="@{'/assets/bootstrap/js/bootstrap-datepicker.min.js'}"></script>
+
+	<div class="box box-warning">
+		<div class="box-header with-border">
+			<h3 class="box-title">Dostawca IT - Edycja</h3>
+			<div class="box-tools">
+			</div>
+		</div><!-- /.box-header -->
+		<div class="box-body">
+			<form role="form" th:action="@{/providers/{id}}" th:object="${providerForm}" method="post"  enctype="multipart/form-data">
+				<p th:if="${#fields.hasErrors('global')}" th:errors="*{global}" th:class="text-red">Incorrect data</p>
+				<div class="col-md-12">
+					<div class="form-group col-md-4" th:classappend="${#fields.hasErrors('name')}? 'has-error'">
+						<label>Nazwa</label>
+						<input type="text" class="form-control" name="name" th:field="*{name}" placeholder="Enter Section Name" readonly="readonly"/>
+						<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" th:class="text-red">Incorrect data</p>
+					</div>
+					<div class="form-group col-md-3" th:classappend="${#fields.hasErrors('street')}? 'has-error'">
+						<label>Ulica</label>
+						<input type="text" class="form-control" name="street" th:field="*{street}" placeholder="Enter Section Name" readonly="readonly"/>
+						<p th:if="${#fields.hasErrors('street')}" th:errors="*{street}" th:class="text-red">Incorrect data</p>
+					</div>
+					<div class="form-group col-md-1" th:classappend="${#fields.hasErrors('postcode')}? 'has-error'">
+						<label>Kod</label>
+						<input type="text" class="form-control" name="postcode" th:field="*{postcode}" placeholder="Enter Section Name" readonly="readonly"/>
+						<p th:if="${#fields.hasErrors('postcode')}" th:errors="*{postcode}" th:class="text-red">Incorrect data</p>
+					</div>
+					<div class="form-group col-md-2" th:classappend="${#fields.hasErrors('city')}? 'has-error'">
+						<label>Misto</label>
+						<input type="text" class="form-control" name="city" th:field="*{city}" placeholder="Enter Section Name" readonly="readonly"/>
+						<p th:if="${#fields.hasErrors('city')}" th:errors="*{city}" th:class="text-red">Incorrect data</p>
+					</div>
+					<div class="form-group col-md-2" th:classappend="${#fields.hasErrors('nipnumber')}? 'has-error'">
+						<label>NIP</label>
+						<input type="text" class="form-control" name="nipnumber" th:field="*{nipnumber}" placeholder="Enter Section Name" readonly="readonly"/>
+						<p th:if="${#fields.hasErrors('nipnumber')}" th:errors="*{nipnumber}" th:class="text-red">Incorrect data</p>
+					</div>
+				</div>
+			</form><!--</form>-->
+		</div><!-- /.box-body -->
+	</div><!-- /.box -->
+
+	<div class="box box-default">
+		<div class="box-body">
+			<div class="table tab-content col-md-12">
+
+				<!--Cialo#1 START -->
+
+				<table class="table table-hover">
+
+					<h4>Lista faktur</h4>
+
+					<tr>
+						<th style="width: 10px">#</th>
+						<th>Numer faktury</th>
+						<th>Data zakupu</th>
+						<th></th>
+						<th>
+							<button type="button" class="btn btn-primary" aria-label="Left Align" data-toggle="modal" data-target="#myModal">
+											<span class="glyphicon glyphicon-plus" aria-hidden="true">
+                                    		</span>
+							</button>
+						</th>
+					</tr>
+					<tr th:if="${not #lists.isEmpty(providerForm.deliveries)}" th:each="providerForm.deliveries,iterStat1 : ${providerForm.deliveries}">
+						<td><span th:text="${iterStat1.count}">1</span></td>
+						<td th:text="${providerForm.deliveries.get(__${iterStat1.index}__).fvnumber}"></td>
+						<td th:text="${providerForm.deliveries.get(__${iterStat1.index}__).dateofbought}"></td>
+						<td><a th:href="@{/providers/delivery/{id}(id=${providerForm.deliveries.get(__${iterStat1.index}__).id})}" class="btn btn-sm btn-default"><i class="fa fa-edit"></i>Edycja</a></td>
+						<td><a href="#collapseProvider" role="button" data-toggle="collapse" aria-expanded="false" aria-controls="collapseExample"><i class="fa fa-chevron-down"></i></a></td>
+
+						<div th:if="${not #lists.isEmpty(providerForm.deliveries.get(__${iterStat1.index}__).stocktakingHardwares)}" class="collapse" id="collapseProvider">
+							<tr>
+								<th style="width: 10px">#</th>
+								<th>Numer faktury</th>
+								<th>Data zakupu</th>
+							</tr>
+							<tr th:each="providerForm.deliveries.stocktakingHardwares,iterStat2 : ${providerForm.deliveries.get(__${iterStat1.index}__).stocktakingHardwares}">
+									<td><span th:text="${iterStat2.count}">1</span></td>
+									<td th:text="${providerForm.deliveries.get(__${iterStat1.index}__).stocktakingHardwares.get(__${iterStat2.index}__).stocktakingnumberms}"></td>
+									<td th:text="${providerForm.deliveries.get(__${iterStat1.index}__).stocktakingHardwares.get(__${iterStat2.index}__).stocktakingnumbersap}"></td>
+							</tr>
+						</div>
+					</tr>
+					<!--</form>-->
+				</table>
+			</div>
+		</div>
+	</div>
+
+</div>
+
+
+<script>
+    w3.includeHTML();
+</script>
+</body>
+
+</html>
