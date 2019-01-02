@@ -21,6 +21,11 @@ public class MenuConfiguration
 		MENU_URL_PATTERN_MAP.put("/compliances/code_of_ethic", "Compliances_code_of_ethic");
 		MENU_URL_PATTERN_MAP.put("/compliances/anticorruption_policy", "Compliances_anticorruption_policy");
 
+		MENU_URL_PATTERN_MAP.put("/stocktakings", "Stocktakings");
+		MENU_URL_PATTERN_MAP.put("/stocktakings/configure", "Stocktakings_configure");
+
+		MENU_URL_PATTERN_MAP.put("/providers", "Providers");
+
 		MENU_URL_PATTERN_MAP.put("/users", "Users");
 		MENU_URL_PATTERN_MAP.put("/roles", "Roles");
 		MENU_URL_PATTERN_MAP.put("/permissions", "Permissions");

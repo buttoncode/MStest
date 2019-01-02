@@ -17,6 +17,11 @@ public class SecurityUtil
 	public static final String MANAGE_EMPLOYEES_TASKBOOK = "ROLE_MANAGE_EMPLOYEES_TASKBOOK";
 	public static final String MANAGE_EMPLOYEES_EDITEMPLOYEE = "ROLE_MANAGE_EMPLOYEES_EDITEMPLOYEE";
 
+	public static final String MANAGE_STOCKTAKING = "ROLE_MANAGE_STOCKTAKING";
+	public static final String MANAGE_STOCKTAKING_CONFIGURE = "ROLE_MANAGE_STOCKTAKING_CONFIGURE";
+
+	public static final String MANAGE_PROVIDERS = "ROLE_MANAGE_PROVIDERS";
+
 	public static final String MANAGE_USERS = "ROLE_MANAGE_USERS";
 	public static final String MANAGE_ROLES = "ROLE_MANAGE_ROLES";
 	public static final String MANAGE_PERMISSIONS = "ROLE_MANAGE_PERMISSIONS";
