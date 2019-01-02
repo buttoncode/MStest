@@ -22,4 +22,10 @@ public interface EmployeeRepository extends JpaRepository <Employee, Integer>, J
     @Query("SELECT e FROM Employee e WHERE NOT e.statusEmployee.name = ?1")
     List<Employee> findAllEmployeeWithStatus(String status);
 
+    @Query("SELECT e FROM Employee e WHERE NOT EXISTS (SELECT c.employee.id FROM ComplianceCodeOfEthic c WHERE e.id = c.employee.id) AND NOT e.statusEmployee.name = ?1")
+    List<Employee> findAllEmployeeWithoutComplianceCodeOfEthic (String status);
+
+    @Query("SELECT e FROM Employee e WHERE NOT EXISTS (SELECT c.employee.id FROM ComplianceAntiCorruptionPolicy c WHERE e.id = c.employee.id) AND NOT e.statusEmployee.name = ?1")
+    List<Employee> findAllEmployeeWithoutComplianceAntiCorruptionPolicy (String status);
+
 }
